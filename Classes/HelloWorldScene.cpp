@@ -52,14 +52,25 @@ bool HelloWorld::init()
 	auto sprite = Sprite::create("gamescene/background/3.png");
 	sprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
-	auto brick1 = CBrick::Create(CBrick::BrickType::Glass, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	auto brick2 = CBrick::Create(CBrick::BrickType::Empty, Vec2(brick1.GetLocation().x + brick1.GetSize().width, brick1.GetLocation().y));
+	auto tb = CBrickTable::Create(5, 3, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+
+	tb->AddBrick(CBrick::Create(CBrick::BrickType::Glass), 0, 0);
+	tb->AddBrick(CBrick::Create(CBrick::BrickType::Glass), 1, 0);
+	tb->AddBrick(CBrick::Create(CBrick::BrickType::Glass), 2, 0);
+	tb->AddBrick(CBrick::Create(CBrick::BrickType::Glass), 3, 0);
+	tb->AddBrick(CBrick::Create(CBrick::BrickType::Glass), 4, 0);
+
+	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), 0, 1);
+	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), 1, 1);
+	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), 2, 1);
+
+	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), 0, 2);
+	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), 1, 2);
+	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), 2, 2);
 	
 	this->addChild(sprite, 0);
-	brick1.Attatch(this, 1);
-	brick2.Attatch(this, 1);
+	tb->AttatchAll(this, 1);
 
-    
     return true;
 }
 

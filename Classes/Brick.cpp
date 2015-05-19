@@ -11,22 +11,22 @@ CBrick::~CBrick()
 {
 }
 
-CBrick CBrick::Create(BrickType type, Vec2 location)
+CBrick* CBrick::Create(BrickType type, Vec2 location)
 {
-	auto Brick = CBrick();
+	auto Brick = new CBrick();
 	switch (type)
 	{
 	case CBrick::Empty:
-		Brick.sprite = Sprite::create("gamescene/ground/empty.png");
+		Brick->sprite = Sprite::create("gamescene/ground/empty.png");
 		break;
 	case CBrick::Glass:
-		Brick.sprite = Sprite::create("gamescene/ground/glass.png");
+		Brick->sprite = Sprite::create("gamescene/ground/glass.png");
 		break;
 	default:
 		//return nullptr;
 		break;
 	}
-	Brick.sprite->setPosition(location);
+	Brick->sprite->setPosition(location);
 	return Brick;
 }
 

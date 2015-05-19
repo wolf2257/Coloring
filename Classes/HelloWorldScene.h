@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Brick.h"
+#include "BrickTable.h"
 
 class HelloWorld : public cocos2d::Layer
 {

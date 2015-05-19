@@ -11,7 +11,7 @@ private:
 	CBrick();
 	cocos2d::Sprite *sprite;
 public:
-	static CBrick Create(BrickType, cocos2d::Vec2);
+	static CBrick* Create(BrickType, cocos2d::Vec2 = cocos2d::Vec2(0, 0));
 	~CBrick();
 	void CBrick::Attatch(cocos2d::Layer*, int);
 
