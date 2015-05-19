@@ -52,11 +52,12 @@ bool HelloWorld::init()
 	auto sprite = Sprite::create("gamescene/background/3.png");
 	sprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
-	auto sprite2 = Sprite::create("gamescene/key/down.png");
-	sprite2->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	auto brick1 = CBrick::Create(CBrick::BrickType::Glass, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	auto brick2 = CBrick::Create(CBrick::BrickType::Empty, Vec2(brick1.GetLocation().x + brick1.GetSize().width, brick1.GetLocation().y));
 	
 	this->addChild(sprite, 0);
-	this->addChild(sprite2, 0);
+	brick1.Attatch(this, 1);
+	brick2.Attatch(this, 1);
 
     
     return true;

@@ -45,3 +45,5 @@ Temporary Items
 cocos2d/
 proj.win32/Debug.win32/
 *.sdf
+*.suo
+*.opensdf
