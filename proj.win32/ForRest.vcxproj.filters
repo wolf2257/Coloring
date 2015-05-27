@@ -10,6 +10,12 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Scene">
+      <UniqueIdentifier>{9b386c02-aa60-4119-a103-9dfc6ac15eb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\Layers">
+      <UniqueIdentifier>{83e3f3d7-7c49-452a-8e9e-428b776df303}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -18,14 +24,26 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Brick.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\BrickTable.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CreditsLayer.cpp">
+      <Filter>src\Scene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LevelDecideA.cpp">
+      <Filter>src\Scene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LevelDecideB.cpp">
+      <Filter>src\Scene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -35,14 +53,26 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Brick.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BrickTable.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CreditsLayer.h">
+      <Filter>src\Scene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelDecideA.h">
+      <Filter>src\Scene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelDecideB.h">
+      <Filter>src\Scene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
