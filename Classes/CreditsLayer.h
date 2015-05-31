@@ -10,6 +10,8 @@ public:
 	static Scene* scene();
 	CREATE_FUNC(CCreditsLayer);
 	virtual bool init();
+	void UpButtonCallback(cocos2d::Ref* pSender);
+	void MoveLayersToDown(float f);
 };
 
 #endif

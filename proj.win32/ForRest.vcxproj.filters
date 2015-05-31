@@ -13,8 +13,23 @@
     <Filter Include="src\Scene">
       <UniqueIdentifier>{9b386c02-aa60-4119-a103-9dfc6ac15eb1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Scene\Layers">
-      <UniqueIdentifier>{83e3f3d7-7c49-452a-8e9e-428b776df303}</UniqueIdentifier>
+    <Filter Include="src\Scene\MenuScene">
+      <UniqueIdentifier>{31747347-6fdb-4512-b274-f3dfde91298f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\IngameScene">
+      <UniqueIdentifier>{33635bb1-0452-4424-ae9a-b9fff262b32f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MenuScene\Layers">
+      <UniqueIdentifier>{6bdd890f-a7cf-429e-95ad-72ae47bef79c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\IngameScene\Layers">
+      <UniqueIdentifier>{d2c36168-f76c-4ed5-a098-51f13975805a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\IngameScene\Objects">
+      <UniqueIdentifier>{65ecaa14-c48a-4e2f-9ba8-4605e93d587e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Scene\MenuScene\Objects">
+      <UniqueIdentifier>{dc4414d1-d1ec-449e-87b5-e17c36753cb1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -24,26 +39,32 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Brick.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BrickTable.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MenuScene.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\CreditsLayer.cpp">
-      <Filter>src\Scene\Layers</Filter>
+      <Filter>src\Scene\MenuScene\Layers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LevelDecideA.cpp">
-      <Filter>src\Scene\Layers</Filter>
+      <Filter>src\Scene\MenuScene\Layers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\LevelDecideB.cpp">
-      <Filter>src\Scene\Layers</Filter>
+      <Filter>src\Scene\MenuScene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>src\Scene\MenuScene\Layers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameScene.cpp">
-      <Filter>src\Scene</Filter>
+      <Filter>src\Scene\IngameScene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Brick.cpp">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BrickTable.cpp">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LevelButton.cpp">
+      <Filter>src\Scene\MenuScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DecideHolder.cpp">
+      <Filter>src\Scene\MenuScene\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,26 +74,32 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Brick.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BrickTable.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MenuScene.h">
-      <Filter>src\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\CreditsLayer.h">
-      <Filter>src\Scene\Layers</Filter>
+      <Filter>src\Scene\MenuScene\Layers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LevelDecideA.h">
-      <Filter>src\Scene\Layers</Filter>
+      <Filter>src\Scene\MenuScene\Layers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\LevelDecideB.h">
-      <Filter>src\Scene\Layers</Filter>
+      <Filter>src\Scene\MenuScene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>src\Scene\MenuScene\Layers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameScene.h">
-      <Filter>src\Scene</Filter>
+      <Filter>src\Scene\IngameScene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Brick.h">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BrickTable.h">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DecideHolder.h">
+      <Filter>src\Scene\MenuScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelButton.h">
+      <Filter>src\Scene\MenuScene\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

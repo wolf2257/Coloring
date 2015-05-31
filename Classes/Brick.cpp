@@ -17,10 +17,13 @@ CBrick* CBrick::Create(BrickType type, Vec2 location)
 	switch (type)
 	{
 	case CBrick::Empty:
-		Brick->sprite = Sprite::create("gamescene/ground/empty.png");
+		Brick->sprite = Sprite::create("GameObjects/Block_Empty.png");
 		break;
-	case CBrick::Glass:
-		Brick->sprite = Sprite::create("gamescene/ground/glass.png");
+	case CBrick::GlassGreen:
+		Brick->sprite = Sprite::create("GameObjects/Block_Glass_Green.png");
+		break;
+	case CBrick::GlassRed:
+		Brick->sprite = Sprite::create("GameObjects/Block_Glass_Red.png");
 		break;
 	default:
 		//return nullptr;

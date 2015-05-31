@@ -1,4 +1,6 @@
-#pragma once
+#ifndef __CBrickTable_H__
+#define __CBrickTable_H__
+
 #include "cocos2d.h"
 #include "Brick.h"
 class CBrickTable
@@ -21,3 +23,5 @@ public:
 	static cocos2d::Vec2 BrickSize;
 	cocos2d::Vec2 GetBrickLocation(int row, int col);
 };
+
+#endif

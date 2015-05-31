@@ -10,6 +10,11 @@ public:
 	static Scene* scene();
 	CREATE_FUNC(CLevelDecideA);
 	virtual bool init();
+
+	void DownButtonCallback(cocos2d::Ref* pSender);
+	void MoveLayersToUp(float f);
+	void UpButtonCallback(cocos2d::Ref* pSender);
+	void MoveLayersToDown(float f);
 };
 
 #endif

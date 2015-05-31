@@ -15,10 +15,11 @@ public:
 	CREATE_FUNC(CMenuScene);
 	virtual bool init();
 
-	static CMenuScene *SharedInstance;
-
 	Size visibleSize;
 	Vec2 origin;
+
+	void MoveLayersToUp(float f);
+	void MoveLayersToDown(float f);
 private:
 
 	CCreditsLayer *creditLayer;
@@ -32,9 +33,8 @@ private:
 	void menuSoundCallback(cocos2d::Ref* pSender);
 	void UpButtonCallback(cocos2d::Ref* pSender);
 	void DownButtonCallback(cocos2d::Ref* pSender);
-	
-	void MoveLayersToUp(float f);
-	void MoveLayersToDown(float f);
+
+public : static CMenuScene *SharedInstance;
 };
 
 #endif
