@@ -32,8 +32,3 @@ CBrick* CBrick::Create(BrickType type, Vec2 location)
 	Brick->sprite->setPosition(location);
 	return Brick;
 }
-
-void CBrick::Attatch(Layer *layer, int zOrder)
-{
-	layer->addChild(this->sprite, zOrder);
-}

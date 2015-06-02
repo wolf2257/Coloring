@@ -4,37 +4,57 @@ USING_NS_CC;
 
 Scene* CGameScene::createScene()
 {
-    // 'scene' is an autorelease object
-    auto scene = Scene::create();
-    
-    // 'layer' is an autorelease object
+	// 'scene' is an autorelease object
+	auto scene = Scene::create();
+
+	// 'layer' is an autorelease object
 	auto layer = CGameScene::create();
 
-    // add layer as a child to scene
-    scene->addChild(layer);
+	// add layer as a child to scene
+	scene->addChild(layer);
 
-    // return the scene
-    return scene;
+	// return the scene
+	return scene;
 }
 
 // on "init" you need to initialize your instance
 bool CGameScene::init()
 {
-    //////////////////////////////
-    // 1. super init first
-    if ( !Layer::init() )
-    {
-        return false;
-    }
-    
-    Size visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	//////////////////////////////
+	// 1. super init first
+	if (!Layer::init())
+	{
+		return false;
+	}
 
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
+	scheduleUpdate();
 
-    // add a "close" icon to exit the progress. it's an autorelease object
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	auto origin = Director::getInstance()->getVisibleOrigin();
+
+	this->setTouchEnabled(true);
+	auto dispatcher = Director::getInstance()->getEventDispatcher();
+	auto listner = EventListenerTouchOneByOne::create();
+	listner->setSwallowTouches(false);
+	listner->onTouchBegan = CC_CALLBACK_2(CGameScene::onTouchBegan, this);
+	listner->onTouchEnded = CC_CALLBACK_2(CGameScene::onTouchEnded, this);
+	dispatcher->addEventListenerWithSceneGraphPriority(listner, this);
+
+	auto bg = Sprite::create("Backgrounds/Black.png");
+	bg->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	this->addChild(bg, 0);
+
+	auto LeftButton = Sprite::create("Buttons/Left.png");
+	LeftButton->setPosition(Vec2(LeftButton->getContentSize().width / 2 + 5, LeftButton->getContentSize().height / 2 + 5));
+	this->addChild(LeftButton, 2);
+
+	auto RightButton = Sprite::create("Buttons/Right.png");
+	RightButton->setPosition(Vec2((LeftButton->getContentSize().width * 1.7) + 5, LeftButton->getContentSize().height / 2 + 5));
+	this->addChild(RightButton, 2);
+
+
+#ifdef _DEBUG
+
 	auto closeItem = MenuItemImage::create(
 		"CloseNormal.png",
 		"CloseSelected.png",
@@ -43,19 +63,14 @@ bool CGameScene::init()
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width / 2,
 		origin.y + closeItem->getContentSize().height / 2));
 
-	// create menu, it's an autorelease object
 	auto menu = Menu::create(closeItem, NULL);
 	menu->setPosition(Vec2::ZERO);
-	this->addChild(menu, 1);
+	this->addChild(menu, 3);
+
+#endif
 	
-
-	auto sprite = Sprite::create("Backgrounds/Black.png");
-	sprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-
-	auto sprite1 = Sprite::create("Charactor/Stand.png");
-	sprite1->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-
-	auto tb = CBrickTable::Create(18, 10, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	tb = CBrickTable::Create(18, 10, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	tb->AddCharacter(0,1);
 
 	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), 14, 1);
 	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), 15, 1);
@@ -111,19 +126,64 @@ bool CGameScene::init()
 	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), 13, 9);
 	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), 17, 9);
 
-	this->addChild(sprite, 0);
-	this->addChild(sprite1, 2);
 	tb->AttatchAll(this, 1);
 
-    return true;
+	return true;
 }
 
 
 void CGameScene::menuCloseCallback(Ref* pSender)
 {
-    Director::getInstance()->end();
+	Director::getInstance()->end();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
+	exit(0);
 #endif
+}
+
+
+void CGameScene::update(float dt) {
+	if (!m2lFlag || !m2rFlag)
+	{
+		if (m2lFlag)
+		{
+			tb->GetCharacter()->MoveLeft();
+		}
+		else if (m2rFlag)
+		{
+			tb->GetCharacter()->MoveRight();
+		}
+	}
+	tb->Update(dt);
+}
+
+
+bool CGameScene::onTouchBegan(Touch* touch, Event* event)
+{
+	auto point = touch->getLocation();
+
+	if (LeftButton->boundingBox().containsPoint(point))
+	{
+		m2lFlag = true;
+	}
+	else if (RightButton->boundingBox().containsPoint(point))
+	{
+		m2rFlag = true;
+	}
+	return true;
+}
+
+void CGameScene::onTouchEnded(Touch* touch, Event* event)
+{
+	auto point = touch->getLocation();
+	auto lb = LeftButton->boundingBox();
+	auto db = RightButton->boundingBox();
+	if (lb.containsPoint(point))
+	{
+		m2lFlag = false;
+	}
+	else if (db.containsPoint(point))
+	{
+		m2rFlag = false;
+	}
 }

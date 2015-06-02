@@ -66,6 +66,15 @@
     <ClCompile Include="..\Classes\DecideHolder.cpp">
       <Filter>src\Scene\MenuScene\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Stage.cpp">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Character.cpp">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameObject.cpp">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -100,6 +109,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\LevelButton.h">
       <Filter>src\Scene\MenuScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Character.h">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Stage.h">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameObject.h">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -142,26 +142,32 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\Brick.cpp" />
     <ClCompile Include="..\Classes\BrickTable.cpp" />
+    <ClCompile Include="..\Classes\Character.cpp" />
     <ClCompile Include="..\Classes\CreditsLayer.cpp" />
     <ClCompile Include="..\Classes\DecideHolder.cpp" />
+    <ClCompile Include="..\Classes\GameObject.cpp" />
     <ClCompile Include="..\Classes\GameScene.cpp" />
     <ClCompile Include="..\Classes\LevelButton.cpp" />
     <ClCompile Include="..\Classes\LevelDecideA.cpp" />
     <ClCompile Include="..\Classes\LevelDecideB.cpp" />
     <ClCompile Include="..\Classes\MenuScene.cpp" />
+    <ClCompile Include="..\Classes\Stage.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\Brick.h" />
     <ClInclude Include="..\Classes\BrickTable.h" />
+    <ClInclude Include="..\Classes\Character.h" />
     <ClInclude Include="..\Classes\CreditsLayer.h" />
     <ClInclude Include="..\Classes\DecideHolder.h" />
+    <ClInclude Include="..\Classes\GameObject.h" />
     <ClInclude Include="..\Classes\GameScene.h" />
     <ClInclude Include="..\Classes\LevelButton.h" />
     <ClInclude Include="..\Classes\LevelDecideA.h" />
     <ClInclude Include="..\Classes\LevelDecideB.h" />
     <ClInclude Include="..\Classes\MenuScene.h" />
+    <ClInclude Include="..\Classes\Stage.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

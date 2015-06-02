@@ -3,7 +3,7 @@
 using namespace std;
 USING_NS_CC;
 
-Vec2 CBrickTable::BrickSize = Vec2(55, 56);
+Vec2 CBrickTable::BrickSize = Vec2(45, 45);
 
 CBrickTable::CBrickTable()
 {
@@ -23,40 +23,54 @@ CBrickTable* CBrickTable::Create(int rows, int cols, Vec2 Axis)
 	Table->cols = cols;
 
 	// Array allocation
-	Table->table = new CBrick**[cols];
-	for (int i = 0; i < cols; ++i) {
-		Table->table[i] = new CBrick*[rows];
-		memset(Table->table[i], 0, sizeof(int)*rows);
-	}
+	//Table->table = new CBrick**[cols];
+	//for (int i = 0; i < cols; ++i) {
+	//	Table->table[i] = new CBrick*[rows];
+	//	memset(Table->table[i], 0, sizeof(int)*rows);
+	//}
 
 	Table->Brick00Pos = Vec2(Axis.x - rows * BrickSize.x / 2 + BrickSize.x / 2, Axis.y + cols * BrickSize.y / 2 - BrickSize.y / 2);
 
 	return Table;
 }
 
-bool CBrickTable::AddBrick(CBrick* brick, int row, int col)
+void CBrickTable::AddBrick(CBrick* brick, int row, int col)
 {
-	if (table[col][row] == nullptr)
-	{
-		table[col][row] = brick;
-		brick->SetLocation(GetBrickLocation(row, col));
-		return true;
-	}
-	return false;
+	brick->SetPosition(row, col);
+	brick->SetLocation(GetBrickLocation(row, col));
+	table.push_back(brick);
 }
 
 CBrick* CBrickTable::GetBrick(int row, int col)
 {
-	if (table[col][row] != nullptr)
-	{
-		return table[col][row];
+	for (auto itr = table.begin(); itr != table.end(); ++itr) {
+		if ((*itr)->GetCol() == col && (*itr)->GetRow())
+		{
+			return *itr;
+		}
 	}
 	return nullptr;
 }
 
-bool CBrickTable::RemoveBrick(int row, int col)
+void CBrickTable::RemoveBrick(int row, int col)
 {
-	return AddBrick(nullptr, row, col);
+	table.remove(GetBrick(row, col));
+}
+
+bool CBrickTable::AddCharacter(int row, int col)
+{
+	this->Character = CCharacter::Create(GetBrickLocation(row, col));
+	return true;
+}
+
+CCharacter* CBrickTable::GetCharacter()
+{
+	return this->Character;
+}
+
+bool CBrickTable::RemoveCharacter()
+{
+	return false;
 }
 
 Vec2 CBrickTable::GetBrickLocation(int row, int col)
@@ -66,17 +80,15 @@ Vec2 CBrickTable::GetBrickLocation(int row, int col)
 		Brick00Pos.y - col * BrickSize.y);
 }
 
-
 void CBrickTable::AttatchAll(Layer* layer, int zOrder)
 {
-	for (size_t i = 0; i < cols; i++)
-	{
-		for (size_t j = 0; j < rows; j++)
-		{
-			if (table[i][j] != nullptr)
-			{
-				table[i][j]->Attatch(layer, zOrder);
-			}
-		}
+	for (auto itr = table.begin(); itr != table.end(); ++itr) {
+		(*itr)->Attatch(layer, zOrder);
 	}
+	Character->Attatch(layer, zOrder);
+}
+
+void CBrickTable::Update(float ut)
+{
+	//this->Character->SetLocation(this->Character->GetLocation() - Vec2(0, this->Character->GetSpeed()));
 }
