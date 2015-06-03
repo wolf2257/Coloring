@@ -34,17 +34,18 @@ CBrickTable* CBrickTable::Create(int rows, int cols, Vec2 Axis)
 	return Table;
 }
 
-void CBrickTable::AddBrick(CBrick* brick, int row, int col)
+void CBrickTable::AddBrick(CBrick* brick, Vec2 position)
 {
-	brick->SetPosition(row, col);
-	brick->SetLocation(GetBrickLocation(row, col));
+	brick->SetPosition(position);
+	brick->SetLocation(GetBrickLocation(position));
 	table.push_back(brick);
 }
 
-CBrick* CBrickTable::GetBrick(int row, int col)
+CBrick* CBrickTable::GetBrick(Vec2 position)
 {
 	for (auto itr = table.begin(); itr != table.end(); ++itr) {
-		if ((*itr)->GetCol() == col && (*itr)->GetRow())
+		auto itrPos = (*itr)->GetPosition();
+		if (itrPos.x == position.x && itrPos.y == position.y)
 		{
 			return *itr;
 		}
@@ -52,14 +53,15 @@ CBrick* CBrickTable::GetBrick(int row, int col)
 	return nullptr;
 }
 
-void CBrickTable::RemoveBrick(int row, int col)
+void CBrickTable::RemoveBrick(Vec2 position)
 {
-	table.remove(GetBrick(row, col));
+	table.remove(GetBrick(position));
 }
 
-bool CBrickTable::AddCharacter(int row, int col)
+bool CBrickTable::AddCharacter(Vec2 position)
 {
-	this->Character = CCharacter::Create(GetBrickLocation(row, col));
+	this->Character = CCharacter::Create(GetBrickLocation(position));
+	this->Character->SetPosition(position);
 	return true;
 }
 
@@ -73,11 +75,11 @@ bool CBrickTable::RemoveCharacter()
 	return false;
 }
 
-Vec2 CBrickTable::GetBrickLocation(int row, int col)
+Vec2 CBrickTable::GetBrickLocation(Vec2 position)
 {
 	return Vec2(
-		Brick00Pos.x + row * BrickSize.x, 
-		Brick00Pos.y - col * BrickSize.y);
+		Brick00Pos.x + position.x * BrickSize.x,
+		Brick00Pos.y - position.y * BrickSize.y);
 }
 
 void CBrickTable::AttatchAll(Layer* layer, int zOrder)
@@ -91,4 +93,17 @@ void CBrickTable::AttatchAll(Layer* layer, int zOrder)
 void CBrickTable::Update(float ut)
 {
 	//this->Character->SetLocation(this->Character->GetLocation() - Vec2(0, this->Character->GetSpeed()));
+	
+	this->Character->SetPosition(AdjustObjPos(this->Character->GetLocation()));
+	if (GetBrick(Character->GetPosition()))
+	{
+
+	}
+}
+
+Vec2 CBrickTable::AdjustObjPos(Vec2 location)
+{
+	return Vec2(
+		(location.x - Brick00Pos.x) / BrickSize.x,
+		(Brick00Pos.y - location.y) / BrickSize.y);
 }

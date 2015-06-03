@@ -8,15 +8,14 @@ protected:
 	CGameObject();
 	cocos2d::Sprite *sprite;
 	float speed;
-	int row, col;
+	cocos2d::Vec2 position;
 public:
 	~CGameObject();
 	void Attatch(cocos2d::Layer*, int);
 
 	// Properties
-	inline void SetPosition(int row, int col) { this->row = row; this->col = col; }
-	inline int GetRow() { return row; }
-	inline int GetCol() { return col; }
+	inline void SetPosition(cocos2d::Vec2 position) { this->position = position; }
+	inline cocos2d::Vec2 GetPosition() { return position; }
 	inline cocos2d::Vec2 GetLocation() { return sprite->getPosition(); }
 	inline void SetLocation(cocos2d::Vec2 location) { this->sprite->setPosition(location); }
 	inline cocos2d::Size GetSize() { return sprite->getContentSize(); }
