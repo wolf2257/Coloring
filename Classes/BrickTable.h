@@ -16,11 +16,11 @@ public:
 	static CBrickTable* Create(int, int, cocos2d::Vec2 = cocos2d::Vec2(0,0));
 	~CBrickTable();
 
-	void AddBrick(CBrick* brick, int row, int col);
-	CBrick* GetBrick(int row, int col);
-	void RemoveBrick(int row, int col);
+	void AddBrick(CBrick* brick, cocos2d::Vec2 position);
+	CBrick* GetBrick(cocos2d::Vec2 position);
+	void RemoveBrick(cocos2d::Vec2 position);
 
-	bool AddCharacter(int row, int col);
+	bool AddCharacter(cocos2d::Vec2 position);
 	CCharacter* GetCharacter();
 	bool RemoveCharacter();
 
@@ -28,7 +28,8 @@ public:
 	void AttatchAll(cocos2d::Layer*, int);
 
 	static cocos2d::Vec2 BrickSize;
-	cocos2d::Vec2 GetBrickLocation(int row, int col);
+	cocos2d::Vec2 GetBrickLocation(cocos2d::Vec2 position);
+	cocos2d::Vec2 AdjustObjPos(cocos2d::Vec2 location);
 };
 
 #endif
