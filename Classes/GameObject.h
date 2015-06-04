@@ -9,13 +9,14 @@ protected:
 	cocos2d::Sprite *sprite;
 	float speed;
 	cocos2d::Vec2 position;
+	bool filp;
 public:
 	~CGameObject();
 	void Attatch(cocos2d::Layer*, int);
 
 	// Properties
 	inline void SetPosition(cocos2d::Vec2 position) { this->position = position; }
-	inline cocos2d::Vec2 GetPosition() { return position; }
+	inline cocos2d::Vec2 GetPosition() {  return  position; }
 	inline cocos2d::Vec2 GetLocation() { return sprite->getPosition(); }
 	inline void SetLocation(cocos2d::Vec2 location) { this->sprite->setPosition(location); }
 	inline cocos2d::Size GetSize() { return sprite->getContentSize(); }

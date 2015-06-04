@@ -2,13 +2,14 @@
 #define __CBrickTable_H__
 
 #include "cocos2d.h"
-#include "Brick.h"
 #include "Character.h"
+#include "GameObject.h"
+
 class CBrickTable
 {
 private:
 	CBrickTable();
-	std::list<CBrick*> table;
+	std::list<CGameObject*> table;
 	CCharacter* Character;
 	cocos2d::Vec2 Brick00Pos;
 	int rows, cols;
@@ -16,8 +17,8 @@ public:
 	static CBrickTable* Create(int, int, cocos2d::Vec2 = cocos2d::Vec2(0,0));
 	~CBrickTable();
 
-	void AddBrick(CBrick* brick, cocos2d::Vec2 position);
-	CBrick* GetBrick(cocos2d::Vec2 position);
+	void Add(CGameObject* brick, cocos2d::Vec2 position);
+	CGameObject* GetBrick(cocos2d::Vec2 position);
 	void RemoveBrick(cocos2d::Vec2 position);
 
 	bool AddCharacter(cocos2d::Vec2 position);
@@ -30,6 +31,10 @@ public:
 	static cocos2d::Vec2 BrickSize;
 	cocos2d::Vec2 GetBrickLocation(cocos2d::Vec2 position);
 	cocos2d::Vec2 AdjustObjPos(cocos2d::Vec2 location);
+
+	enum CharAction {MoveLeft, MoveRight, Jump};
+	void MoveCharacter(CharAction Act);
+
 };
 
 #endif

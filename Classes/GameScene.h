@@ -5,7 +5,7 @@
 #include "Brick.h"
 #include "BrickTable.h"
 #include "Character.h"
-#include "Stage.h"
+#include "ColoringPallet.h"
 
 class CGameScene : public cocos2d::Layer
 {
@@ -21,18 +21,18 @@ public:
 	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
 	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
 
-    
     // implement the "static create()" method manually
 	CREATE_FUNC(CGameScene);
 
 	virtual void update(float dt);
 
 private:
-	cocos2d::Sprite *LeftButton, *RightButton;
+	cocos2d::Sprite *LeftButton, *RightButton, *JumpButton;
 	CBrickTable *tb;
-
+	CColoringPallet *cp;
 
 	bool m2lFlag, m2rFlag;
+	cocos2d::Sprite* GenBackground();
 };
 
 #endif // __HELLOWORLD_SCENE_H__

@@ -38,19 +38,29 @@ bool CGameScene::init()
 	listner->onTouchEnded = CC_CALLBACK_2(CGameScene::onTouchEnded, this);
 	dispatcher->addEventListenerWithSceneGraphPriority(listner, this);
 
-	auto bg = Sprite::create("Backgrounds/Black.png");
+	auto bg = GenBackground();
 	bg->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(bg, 0);
 
 	m2lFlag = m2rFlag = false;
 
+	const int margin = 10;
+
 	LeftButton = Sprite::create("Buttons/Left.png");
-	LeftButton->setPosition(Vec2(LeftButton->getContentSize().width / 2 + 5, LeftButton->getContentSize().height / 2 + 5));
-	this->addChild(LeftButton, 2);
+	LeftButton->setPosition(Vec2(LeftButton->getContentSize().width / 2 + margin, LeftButton->getContentSize().height / 2 + margin));
+	this->addChild(LeftButton, 4);
 
 	RightButton = Sprite::create("Buttons/Right.png");
-	RightButton->setPosition(Vec2((LeftButton->getContentSize().width * 1.7) + 5, LeftButton->getContentSize().height / 2 + 5));
-	this->addChild(RightButton, 2);
+	RightButton->setPosition(Vec2((LeftButton->getContentSize().width * 1.7) + margin, LeftButton->getContentSize().height / 2 + margin));
+	this->addChild(RightButton, 4);
+
+	JumpButton = Sprite::create("Buttons/Jump.png");
+	JumpButton->setPosition(Vec2(visibleSize.width - LeftButton->getContentSize().width / 2 - margin, LeftButton->getContentSize().height / 2 + margin));
+	this->addChild(JumpButton, 4);
+
+	cp = CColoringPallet::Create(Vec2(visibleSize.width - (LeftButton->getContentSize().width * 1.7) - margin, LeftButton->getContentSize().height / 2 + margin));
+	cp->Coloring(CColoringPallet::Pallets::Red);
+	cp->Attatch(this, 5);
 
 #ifdef _DEBUG
 
@@ -69,61 +79,71 @@ bool CGameScene::init()
 #endif
 	
 	tb = CBrickTable::Create(18, 10, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	tb->AddCharacter(Vec2(0,0));
+	tb->AddCharacter(Vec2(2,7));
 
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(14, 1));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(15, 1));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(16, 1));
+#ifndef Terrians  
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(14, 1));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(15, 1));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(16, 1));
+		   
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(0, 2));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(1, 2));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(2, 2));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(3, 2));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(4, 2));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(5, 2));
+		   
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(0, 3));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(1, 3));
+		   
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(0, 4));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(1, 4));
+		   
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(0, 5));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(1, 5));
+		   
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(0, 6));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(1, 6));
+		   
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(0, 7));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(1, 7));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(10, 7));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(11, 7));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(12, 7));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(13, 7));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(17, 7));
+		   
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(0, 8));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(1, 8));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(10, 8));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(11, 8));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(12, 8));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(13, 8));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(17, 8));
+		   
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(0, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(1, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(2, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(3, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(4, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(5, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(6, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(7, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(8, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(10, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(11, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(12, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(13, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(17, 9));
+#endif
 
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(0, 2));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(1, 2));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(2, 2));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(3, 2));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(4, 2));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(5, 2));
+#ifndef Trees
+	tb->Add(CBrick::Create(CBrick::BrickType::TreeRed), Vec2(1, 1));
+	tb->Add(CBrick::Create(CBrick::BrickType::Invisible), Vec2(1, 0));
 
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(0, 3));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(1, 3));
-
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(0, 4));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(1, 4));
-
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(0, 5));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(1, 5));
-
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(0, 6));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(1, 6));
-
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(0, 7));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(1, 7));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(10, 7));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(11, 7));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(12, 7));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(13, 7));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(17, 7));
-
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(0, 8));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(1, 8));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(10, 8));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(11, 8));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(12, 8));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(13, 8));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(17, 8));
-
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(0, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(1, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(2, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(3, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(4, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(5, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(6, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(7, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(8, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(10, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(11, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(12, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(13, 9));
-	tb->AddBrick(CBrick::Create(CBrick::BrickType::Empty), Vec2(17, 9));
+	tb->Add(CBrick::Create(CBrick::BrickType::TreeGreen), Vec2(11, 6));
+	tb->Add(CBrick::Create(CBrick::BrickType::Invisible), Vec2(11, 5));
+#endif
 
 	tb->AttatchAll(this, 1);
 
@@ -146,11 +166,11 @@ void CGameScene::update(float dt) {
 	{
 		if (m2lFlag)
 		{
-			tb->GetCharacter()->MoveLeft();
+			tb->MoveCharacter(CBrickTable::CharAction::MoveLeft);
 		}
 		else if (m2rFlag)
 		{
-			tb->GetCharacter()->MoveRight();
+			tb->MoveCharacter(CBrickTable::CharAction::MoveRight);
 		}
 	}
 	tb->Update(dt);
@@ -184,5 +204,20 @@ void CGameScene::onTouchEnded(Touch* touch, Event* event)
 	else if (db.containsPoint(point))
 	{
 		m2rFlag = false;
+	}
+}
+
+Sprite* CGameScene::GenBackground()
+{
+	switch (rand() % 4)
+	{
+	default:
+		return Sprite::create("Backgrounds/Orange.png");
+	case 1:
+		return Sprite::create("Backgrounds/Pink.png");
+	case 2:
+		return Sprite::create("Backgrounds/Blue.png");
+	case 3:
+		return Sprite::create("Backgrounds/Mint.png");
 	}
 }

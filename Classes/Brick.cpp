@@ -16,18 +16,25 @@ CBrick* CBrick::Create(BrickType type, Vec2 location)
 	auto Brick = new CBrick();
 	switch (type)
 	{
-	case CBrick::Empty:
+	case BrickType::EmptyGround:
 		Brick->sprite = Sprite::create("GameObjects/Block_Empty.png");
 		break;
-	case CBrick::GlassGreen:
+	case BrickType::GlassGreen:
 		Brick->sprite = Sprite::create("GameObjects/Block_Glass_Green.png");
 		break;
-	case CBrick::GlassRed:
+	case BrickType::GlassRed:
 		Brick->sprite = Sprite::create("GameObjects/Block_Glass_Red.png");
 		break;
-	default:
-		//return nullptr;
+	case BrickType::TreeGreen:
+		Brick->sprite = Sprite::create("GameObjects/Tree_Green.png");
+		Brick->sprite->setAnchorPoint(Vec2(0.5, 0.21));
 		break;
+	case BrickType::TreeRed:
+		Brick->sprite = Sprite::create("GameObjects/Tree_Red.png");
+		Brick->sprite->setAnchorPoint(Vec2(0.5, 0.21));
+		break;
+	case BrickType::Invisible:
+		Brick->sprite = Sprite::create("GameObjects/Invibisle.png");
 	}
 	Brick->sprite->setPosition(location);
 	return Brick;

@@ -18,7 +18,7 @@ CBrickTable::~CBrickTable()
 CBrickTable* CBrickTable::Create(int rows, int cols, Vec2 Axis)
 {
 	auto Table = new CBrickTable();
-	
+
 	Table->rows = rows;
 	Table->cols = cols;
 
@@ -34,14 +34,14 @@ CBrickTable* CBrickTable::Create(int rows, int cols, Vec2 Axis)
 	return Table;
 }
 
-void CBrickTable::AddBrick(CBrick* brick, Vec2 position)
+void CBrickTable::Add(CGameObject* brick, Vec2 position)
 {
 	brick->SetPosition(position);
 	brick->SetLocation(GetBrickLocation(position));
 	table.push_back(brick);
 }
 
-CBrick* CBrickTable::GetBrick(Vec2 position)
+CGameObject* CBrickTable::GetBrick(Vec2 position)
 {
 	for (auto itr = table.begin(); itr != table.end(); ++itr) {
 		auto itrPos = (*itr)->GetPosition();
@@ -92,18 +92,41 @@ void CBrickTable::AttatchAll(Layer* layer, int zOrder)
 
 void CBrickTable::Update(float ut)
 {
-	//this->Character->SetLocation(this->Character->GetLocation() - Vec2(0, this->Character->GetSpeed()));
-	
 	this->Character->SetPosition(AdjustObjPos(this->Character->GetLocation()));
-	if (GetBrick(Character->GetPosition()))
+	this->Character->Update(ut);
+	if (GetBrick(Character->GetPosition() + Vec2(0, 1)) == nullptr)
 	{
+		this->Character->SetLocation(this->Character->GetLocation() - Vec2(0, this->Character->GetSpeed()));
+	}
+}
 
+void CBrickTable::MoveCharacter(CBrickTable::CharAction direction)
+{
+	switch (direction)
+	{
+	case CBrickTable::MoveLeft:
+		if (GetBrick(AdjustObjPos(this->Character->GetLocation() + Vec2(Character->GetSize().width / 2, 0)) + Vec2(-1, 0)) == nullptr)
+		{
+			this->Character->MoveLeft();
+		}
+		break;
+	case CBrickTable::MoveRight:
+		if (GetBrick(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(1, 0)) == nullptr)
+		{
+			this->Character->MoveRight();
+		}
+		break;
+	case CBrickTable::Jump:
+		break;
+	default:
+		break;
 	}
 }
 
 Vec2 CBrickTable::AdjustObjPos(Vec2 location)
 {
 	return Vec2(
-		(location.x - Brick00Pos.x) / BrickSize.x,
-		(Brick00Pos.y - location.y) / BrickSize.y);
+		round((location.x - Brick00Pos.x) / BrickSize.x),
+		round((Brick00Pos.y - location.y) / BrickSize.y)
+		);
 }
