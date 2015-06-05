@@ -57,9 +57,6 @@
     <ClCompile Include="..\Classes\Brick.cpp">
       <Filter>src\Scene\IngameScene\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BrickTable.cpp">
-      <Filter>src\Scene\IngameScene\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\LevelButton.cpp">
       <Filter>src\Scene\MenuScene\Objects</Filter>
     </ClCompile>
@@ -73,6 +70,9 @@
       <Filter>src\Scene\IngameScene\Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ColoringPallet.cpp">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BrickTable.cpp">
       <Filter>src\Scene\IngameScene\Objects</Filter>
     </ClCompile>
   </ItemGroup>

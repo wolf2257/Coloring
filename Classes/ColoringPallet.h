@@ -18,6 +18,7 @@ public:
 	~CColoringPallet();
 
 	void Coloring(Pallets);
+	cocos2d::Rect GetBound();
 };
 
 #endif
