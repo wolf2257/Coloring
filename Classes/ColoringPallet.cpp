@@ -46,3 +46,9 @@ void CColoringPallet::Coloring(Pallets color)
 		break;
 	}
 }
+
+
+Rect CColoringPallet::GetBound()
+{
+	return this->sprite->getBoundingBox();
+}

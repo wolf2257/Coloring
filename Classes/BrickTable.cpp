@@ -1,4 +1,5 @@
 #include "BrickTable.h"
+#include "ColoringPallet.h"
 
 using namespace std;
 USING_NS_CC;
@@ -34,14 +35,14 @@ CBrickTable* CBrickTable::Create(int rows, int cols, Vec2 Axis)
 	return Table;
 }
 
-void CBrickTable::Add(CGameObject* brick, Vec2 position)
+void CBrickTable::Add(CBrick* brick, Vec2 position)
 {
 	brick->SetPosition(position);
 	brick->SetLocation(GetBrickLocation(position));
 	table.push_back(brick);
 }
 
-CGameObject* CBrickTable::GetBrick(Vec2 position)
+CBrick* CBrickTable::GetBrick(Vec2 position)
 {
 	for (auto itr = table.begin(); itr != table.end(); ++itr) {
 		auto itrPos = (*itr)->GetPosition();
@@ -105,13 +106,13 @@ void CBrickTable::MoveCharacter(CBrickTable::CharAction direction)
 	switch (direction)
 	{
 	case CBrickTable::MoveLeft:
-		if (GetBrick(AdjustObjPos(this->Character->GetLocation() + Vec2(Character->GetSize().width / 2, 0)) + Vec2(-1, 0)) == nullptr)
+		if (IsMoveablePlace(GetBrick(AdjustObjPos(this->Character->GetLocation() + Vec2(Character->GetSize().width / 2, 0)) + Vec2(-1, 0))))
 		{
 			this->Character->MoveLeft();
 		}
 		break;
 	case CBrickTable::MoveRight:
-		if (GetBrick(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(1, 0)) == nullptr)
+		if (IsMoveablePlace(GetBrick(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(1, 0))))
 		{
 			this->Character->MoveRight();
 		}
@@ -123,10 +124,44 @@ void CBrickTable::MoveCharacter(CBrickTable::CharAction direction)
 	}
 }
 
+bool CBrickTable::IsMoveablePlace(CBrick* brick)
+{
+	if (brick == nullptr)
+	{
+		return true;
+	}
+	else
+	{
+		switch (brick->Type)
+		{
+			case CBrick::BrickType::RedAura:
+				return true;
+		default:
+			return false;
+		}
+	}
+}
+
 Vec2 CBrickTable::AdjustObjPos(Vec2 location)
 {
 	return Vec2(
 		round((location.x - Brick00Pos.x) / BrickSize.x),
 		round((Brick00Pos.y - location.y) / BrickSize.y)
 		);
+}
+
+int CBrickTable::Coloring()
+{
+	auto query = this->GetBrick(this->GetCharacter()->GetPosition());
+	if (query != nullptr )
+	{
+		switch (query->Type)
+		{
+		case CBrick::BrickType::RedAura:
+			return 1;
+			break;
+		default:
+			break;
+		}
+	}
 }

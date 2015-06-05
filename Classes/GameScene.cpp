@@ -59,7 +59,7 @@ bool CGameScene::init()
 	this->addChild(JumpButton, 4);
 
 	cp = CColoringPallet::Create(Vec2(visibleSize.width - (LeftButton->getContentSize().width * 1.7) - margin, LeftButton->getContentSize().height / 2 + margin));
-	cp->Coloring(CColoringPallet::Pallets::Red);
+	cp->Coloring(CColoringPallet::Pallets::Empty);
 	cp->Attatch(this, 5);
 
 #ifdef _DEBUG
@@ -145,6 +145,8 @@ bool CGameScene::init()
 	tb->Add(CBrick::Create(CBrick::BrickType::Invisible), Vec2(11, 5));
 #endif
 
+	tb->Add(CBrick::Create(CBrick::BrickType::RedAura), Vec2(5, 8));
+
 	tb->AttatchAll(this, 1);
 
 	return true;
@@ -188,6 +190,14 @@ bool CGameScene::onTouchBegan(Touch* touch, Event* event)
 	else if (RightButton->boundingBox().containsPoint(point))
 	{
 		m2rFlag = true;
+	}
+	else if (JumpButton->boundingBox().containsPoint(point))
+	{
+		
+	}
+	else if (cp->GetBound().containsPoint(point))
+	{
+		this->cp->Coloring((CColoringPallet::Pallets)tb->Coloring());
 	}
 	return true;
 }

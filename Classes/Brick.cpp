@@ -14,6 +14,7 @@ CBrick::~CBrick()
 CBrick* CBrick::Create(BrickType type, Vec2 location)
 {
 	auto Brick = new CBrick();
+	Brick->Type = type;
 	switch (type)
 	{
 	case BrickType::EmptyGround:
@@ -35,6 +36,10 @@ CBrick* CBrick::Create(BrickType type, Vec2 location)
 		break;
 	case BrickType::Invisible:
 		Brick->sprite = Sprite::create("GameObjects/Invibisle.png");
+		break;
+	case BrickType::RedAura:
+		Brick->sprite = Sprite::create("Buttons/Pallets/Red.png");
+		break;
 	}
 	Brick->sprite->setPosition(location);
 	return Brick;

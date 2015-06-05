@@ -3,22 +3,24 @@
 
 #include "cocos2d.h"
 #include "Character.h"
-#include "GameObject.h"
+#include "Brick.h"
 
 class CBrickTable
 {
 private:
 	CBrickTable();
-	std::list<CGameObject*> table;
+	std::list<CBrick*> table;
 	CCharacter* Character;
 	cocos2d::Vec2 Brick00Pos;
 	int rows, cols;
+
+	bool IsMoveablePlace(CBrick*);
 public:
 	static CBrickTable* Create(int, int, cocos2d::Vec2 = cocos2d::Vec2(0,0));
 	~CBrickTable();
 
-	void Add(CGameObject* brick, cocos2d::Vec2 position);
-	CGameObject* GetBrick(cocos2d::Vec2 position);
+	void Add(CBrick* brick, cocos2d::Vec2 position);
+	CBrick* GetBrick(cocos2d::Vec2 position);
 	void RemoveBrick(cocos2d::Vec2 position);
 
 	bool AddCharacter(cocos2d::Vec2 position);
@@ -34,7 +36,7 @@ public:
 
 	enum CharAction {MoveLeft, MoveRight, Jump};
 	void MoveCharacter(CharAction Act);
-
+	int Coloring();
 };
 
 #endif
