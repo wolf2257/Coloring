@@ -37,8 +37,9 @@ bool CMenuScene::init()
 	background->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(background);
 
-	auto cover = Sprite::create("Backgrounds/Main.png");
+	auto cover = Sprite::create("Backgrounds/Title.png");
 	cover->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	cover->setAnchorPoint(Vec2(0.5,0.8));
 	this->addChild(cover);
 
 	soundItem = MenuItemImage::create(

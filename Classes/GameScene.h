@@ -17,21 +17,23 @@ public:
     virtual bool init();
     
     // a selector callback
-	void menuCloseCallback(cocos2d::Ref* pSender);
-	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
-
-    // implement the "static create()" method manually
 	CREATE_FUNC(CGameScene);
 
 	virtual void update(float dt);
 
 private:
+	void menuCloseCallback(cocos2d::Ref* pSender);
+	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+	void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
+	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+	virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+
+	// implement the "static create()" method manually
 	cocos2d::Sprite *LeftButton, *RightButton, *JumpButton;
 	CBrickTable *tb;
 	CColoringPallet *cp;
 
-	bool m2lFlag, m2rFlag;
+	bool m2lFlag, m2rFlag, m2uFlag;
 	cocos2d::Sprite* GenBackground();
 };
 

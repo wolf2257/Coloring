@@ -4,7 +4,7 @@
 using namespace std;
 USING_NS_CC;
 
-Vec2 CBrickTable::BrickSize = Vec2(45, 45);
+Vec2 CBrickTable::BrickSize = Vec2(50, 50);
 
 CBrickTable::CBrickTable()
 {
@@ -42,21 +42,26 @@ void CBrickTable::Add(CBrick* brick, Vec2 position)
 	table.push_back(brick);
 }
 
-CBrick* CBrickTable::GetBrick(Vec2 position)
+std::list<CBrick*>  CBrickTable::GetBricks(Vec2 position)
 {
+	auto list = std::list<CBrick*>();
 	for (auto itr = table.begin(); itr != table.end(); ++itr) {
 		auto itrPos = (*itr)->GetPosition();
 		if (itrPos.x == position.x && itrPos.y == position.y)
 		{
-			return *itr;
+			list.push_back(*itr);
 		}
 	}
-	return nullptr;
+
+	return list;
 }
 
 void CBrickTable::RemoveBrick(Vec2 position)
 {
-	table.remove(GetBrick(position));
+	for each (auto var in GetBricks(position))
+	{
+		table.remove(var);
+	}
 }
 
 bool CBrickTable::AddCharacter(Vec2 position)
@@ -95,9 +100,26 @@ void CBrickTable::Update(float ut)
 {
 	this->Character->SetPosition(AdjustObjPos(this->Character->GetLocation()));
 	this->Character->Update(ut);
-	if (GetBrick(Character->GetPosition() + Vec2(0, 1)) == nullptr)
+	if (this->Character->jumpCount > 0 && !this->Character->hanging)
+	{
+		if (IsMoveablePlace(GetBricks(Character->GetPosition() + Vec2(0, -1))))
+		{
+			this->Character->JumpTick();
+		}
+		else
+		{
+			this->Character->jumpCount = 0;
+			this->Character->jumping = false;
+		}
+	}
+	else if (!this->Character->hanging &&
+		IsMoveablePlace(GetBricks(Character->GetPosition() + Vec2(0, 1))))
 	{
 		this->Character->SetLocation(this->Character->GetLocation() - Vec2(0, this->Character->GetSpeed()));
+	}
+	else
+	{
+		this->Character->jumping = false;
 	}
 }
 
@@ -106,40 +128,77 @@ void CBrickTable::MoveCharacter(CBrickTable::CharAction direction)
 	switch (direction)
 	{
 	case CBrickTable::MoveLeft:
-		if (IsMoveablePlace(GetBrick(AdjustObjPos(this->Character->GetLocation() + Vec2(Character->GetSize().width / 2, 0)) + Vec2(-1, 0))))
+		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() + Vec2(Character->GetSize().width / 2, 0)) + Vec2(-1, 0))))
 		{
 			this->Character->MoveLeft();
 		}
 		break;
 	case CBrickTable::MoveRight:
-		if (IsMoveablePlace(GetBrick(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(1, 0))))
+		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(1, 0))))
 		{
 			this->Character->MoveRight();
 		}
 		break;
-	case CBrickTable::Jump:
+	case CBrickTable::MoveUp:
+		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(0, -1))))
+		{
+			this->Character->MoveUp();
+		}
+		break;
+	case CBrickTable::MoveDown:
+		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(0, 1))))
+		{
+			this->Character->MoveDown();
+		}
 		break;
 	default:
 		break;
 	}
 }
 
-bool CBrickTable::IsMoveablePlace(CBrick* brick)
+bool CBrickTable::IsMoveablePlace(std::list<CBrick*>  brick)
 {
-	if (brick == nullptr)
+	if (Character->hanging)
 	{
-		return true;
-	}
-	else
-	{
-		switch (brick->Type)
+		if (brick.size() == 0)
 		{
-			case CBrick::BrickType::RedAura:
-				return true;
-		default:
+			Character->hanging = false;
 			return false;
 		}
+		for each (auto var in brick)
+		{
+			switch (var->Type)
+			{
+			case CBrick::BrickType::Rope:
+			case CBrick::BrickType::RopeHead:
+				continue;
+			default:
+				return false;
+			}
+		}
 	}
+	else if (brick.size() > 0)
+	{
+		for each (auto var in brick)
+		{
+			switch (var->Type)
+			{
+			case CBrick::BrickType::AuraRed:
+			case CBrick::BrickType::AuraGreen:
+			case CBrick::BrickType::AuraYellow:
+			case CBrick::BrickType::TreeRed:
+			case CBrick::BrickType::TreeGreen:
+			case CBrick::BrickType::TreeYellow:
+			case CBrick::BrickType::Rope:
+			case CBrick::BrickType::RopeHead:
+				continue;
+			default:
+				return false;
+			}
+		}
+	}
+
+	return true;
 }
 
 Vec2 CBrickTable::AdjustObjPos(Vec2 location)
@@ -152,16 +211,23 @@ Vec2 CBrickTable::AdjustObjPos(Vec2 location)
 
 int CBrickTable::Coloring()
 {
-	auto query = this->GetBrick(this->GetCharacter()->GetPosition());
-	if (query != nullptr )
+	for each (auto var in this->GetBricks(this->GetCharacter()->GetPosition()))
 	{
-		switch (query->Type)
+		if (var != nullptr)
 		{
-		case CBrick::BrickType::RedAura:
-			return 1;
-			break;
-		default:
-			break;
+			switch (var->Type)
+			{
+			case CBrick::BrickType::AuraRed:
+				return 1;
+				break;
+			case CBrick::BrickType::AuraGreen:
+				return 2;
+				break;
+			case CBrick::BrickType::AuraYellow:
+				return 3;
+				break;
+			}
 		}
 	}
+
 }

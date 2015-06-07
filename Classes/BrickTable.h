@@ -14,13 +14,13 @@ private:
 	cocos2d::Vec2 Brick00Pos;
 	int rows, cols;
 
-	bool IsMoveablePlace(CBrick*);
+	bool IsMoveablePlace(std::list<CBrick*> );
 public:
 	static CBrickTable* Create(int, int, cocos2d::Vec2 = cocos2d::Vec2(0,0));
 	~CBrickTable();
 
 	void Add(CBrick* brick, cocos2d::Vec2 position);
-	CBrick* GetBrick(cocos2d::Vec2 position);
+	std::list<CBrick*> GetBricks(cocos2d::Vec2 position);
 	void RemoveBrick(cocos2d::Vec2 position);
 
 	bool AddCharacter(cocos2d::Vec2 position);
@@ -34,7 +34,7 @@ public:
 	cocos2d::Vec2 GetBrickLocation(cocos2d::Vec2 position);
 	cocos2d::Vec2 AdjustObjPos(cocos2d::Vec2 location);
 
-	enum CharAction {MoveLeft, MoveRight, Jump};
+	enum CharAction { MoveLeft, MoveRight, MoveUp, MoveDown };
 	void MoveCharacter(CharAction Act);
 	int Coloring();
 };

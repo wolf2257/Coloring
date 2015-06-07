@@ -8,7 +8,7 @@
 class CColoringPallet : public CGameObject
 {
 public:
-	enum Pallets { Empty, Red, Yellow, Green };
+	enum Pallets { Empty, Red, Green, Yellow };
 private:
 	CColoringPallet();
 	static cocos2d::Map<char*, cocos2d::Texture2D*> pallet;

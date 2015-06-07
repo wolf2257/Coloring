@@ -6,7 +6,14 @@
 class CBrick : public CGameObject
 {
 public:
-	enum BrickType { EmptyGround, GlassGreen, GlassRed, Invisible, TreeRed, TreeGreen, RedAura } Type;
+	enum BrickType {
+		Invisible,
+		EmptyGround, GlassGreen, GlassRed, WaterHead, Water,
+		RopeHead, Rope,
+		Log, Basket,
+		TreeRed, TreeGreen, TreeYellow,
+		AuraRed, AuraGreen, AuraYellow } 
+	Type;
 private:
 	CBrick();
 public:

@@ -190,19 +190,21 @@ void CGameScene::menuCloseCallback(Ref* pSender)
 }
 
 
-void CGameScene::update(float dt)
-{
-	if (m2lFlag)
+void CGameScene::update(float dt) {
+	if (!m2lFlag || !m2rFlag)
 	{
-		tb->MoveCharacter(CBrickTable::CharAction::MoveLeft);
-	}
-	else if (m2rFlag)
-	{
-		tb->MoveCharacter(CBrickTable::CharAction::MoveRight);
-	}
-	else if (m2uFlag)
-	{
-		tb->MoveCharacter(CBrickTable::CharAction::MoveUp);
+		if (m2lFlag)
+		{
+			tb->MoveCharacter(CBrickTable::CharAction::MoveLeft);
+		}
+		else if (m2rFlag)
+		{
+			tb->MoveCharacter(CBrickTable::CharAction::MoveRight);
+		}
+		else if (m2uFlag)
+		{
+			tb->MoveCharacter(CBrickTable::CharAction::MoveUp);
+		}
 	}
 	tb->Update(dt);
 }
@@ -225,9 +227,6 @@ bool CGameScene::onTouchBegan(Touch* touch, Event* event)
 		if (tb->GetCharacter()->jumping)
 		{
 			m2uFlag = true;
-		}
-		else
-		{
 			tb->GetCharacter()->Jump();
 		}
 	}
@@ -284,9 +283,6 @@ void CGameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		if (tb->GetCharacter()->jumping)
 		{
 			m2uFlag = true;
-		}
-		else
-		{
 			tb->GetCharacter()->Jump();
 		}
 		break;
