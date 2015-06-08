@@ -100,26 +100,34 @@ void CBrickTable::Update(float ut)
 {
 	this->Character->SetPosition(AdjustObjPos(this->Character->GetLocation()));
 	this->Character->Update(ut);
-	if (this->Character->jumpCount > 0 && !this->Character->hanging)
+
+	// 점프
+	if (Character->JumpStatus == Character->Jumping)
 	{
+		// 위에 블록 없음
 		if (IsMoveablePlace(GetBricks(Character->GetPosition() + Vec2(0, -1))))
 		{
 			this->Character->JumpTick();
 		}
+		// 위에 블록 있음
 		else
 		{
 			this->Character->jumpCount = 0;
-			this->Character->jumping = false;
+			Character->JumpStatus = Character->Idle;
 		}
 	}
-	else if (!this->Character->hanging &&
-		IsMoveablePlace(GetBricks(Character->GetPosition() + Vec2(0, 1))))
+	// 사다리에 매달림
+	else if (Character->JumpStatus == Character->Hanging)
+	{
+	}
+	// 중력
+	else if (IsMoveablePlace(GetBricks(Character->GetPosition() + Vec2(0, 1))))
 	{
 		this->Character->SetLocation(this->Character->GetLocation() - Vec2(0, this->Character->GetSpeed()));
 	}
 	else
 	{
-		this->Character->jumping = false;
+		Character->JumpStatus = Character->Idle;
 	}
 }
 
@@ -128,25 +136,27 @@ void CBrickTable::MoveCharacter(CBrickTable::CharAction direction)
 	switch (direction)
 	{
 	case CBrickTable::MoveLeft:
+		if (Character->JumpStatus != CCharacter::Hanging)
 		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() + Vec2(Character->GetSize().width / 2, 0)) + Vec2(-1, 0))))
 		{
 			this->Character->MoveLeft();
 		}
 		break;
 	case CBrickTable::MoveRight:
+		if (Character->JumpStatus != CCharacter::Hanging)
 		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(1, 0))))
 		{
 			this->Character->MoveRight();
 		}
 		break;
 	case CBrickTable::MoveUp:
-		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(0, -1))))
+		if (IsHangablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(0, 0))))
 		{
 			this->Character->MoveUp();
 		}
 		break;
 	case CBrickTable::MoveDown:
-		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(0, 1))))
+		if (IsHangablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(0, 1))))
 		{
 			this->Character->MoveDown();
 		}
@@ -158,26 +168,7 @@ void CBrickTable::MoveCharacter(CBrickTable::CharAction direction)
 
 bool CBrickTable::IsMoveablePlace(std::list<CBrick*>  brick)
 {
-	if (Character->hanging)
-	{
-		if (brick.size() == 0)
-		{
-			Character->hanging = false;
-			return false;
-		}
-		for each (auto var in brick)
-		{
-			switch (var->Type)
-			{
-			case CBrick::BrickType::Rope:
-			case CBrick::BrickType::RopeHead:
-				continue;
-			default:
-				return false;
-			}
-		}
-	}
-	else if (brick.size() > 0)
+	if (brick.size() > 0)
 	{
 		for each (auto var in brick)
 		{
@@ -199,6 +190,51 @@ bool CBrickTable::IsMoveablePlace(std::list<CBrick*>  brick)
 	}
 
 	return true;
+}
+
+bool CBrickTable::IsHangablePlace(std::list<CBrick*>  brick)
+{
+	if (Character->JumpStatus == Character->Jumping)
+	{
+		if (brick.size() == 0)
+		{
+			return false;
+		}
+		for each (auto var in brick)
+		{
+			switch (var->Type)
+			{
+			case CBrick::BrickType::Rope:
+			case CBrick::BrickType::RopeHead:
+				Character->JumpStatus = Character->Hanging;
+				return true;
+			default:
+				continue;
+			}
+		}
+	}
+	// 매달린 상태
+	else if (Character->JumpStatus == Character->Hanging)
+	{
+		if (brick.size() == 0)
+		{
+			Character->JumpStatus = Character->End;
+			return true;
+		}
+		for each (auto var in brick)
+		{
+			switch (var->Type)
+			{
+			case CBrick::BrickType::Rope:
+			case CBrick::BrickType::RopeHead:
+				return true;
+			default:
+				continue;
+			}
+		}
+	}
+
+	return false;
 }
 
 Vec2 CBrickTable::AdjustObjPos(Vec2 location)

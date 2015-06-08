@@ -222,13 +222,13 @@ bool CGameScene::onTouchBegan(Touch* touch, Event* event)
 	}
 	else if (JumpButton->boundingBox().containsPoint(point))
 	{
-		if (tb->GetCharacter()->jumping)
-		{
-			m2uFlag = true;
-		}
-		else
+		if (tb->GetCharacter()->JumpStatus == CCharacter::Idle)
 		{
 			tb->GetCharacter()->Jump();
+		}
+		else if (tb->GetCharacter()->JumpStatus == CCharacter::Jumping || tb->GetCharacter()->JumpStatus == CCharacter::Hanging)
+		{
+			m2uFlag = true;
 		}
 	}
 	else if (cp->GetBound().containsPoint(point))
@@ -281,13 +281,13 @@ void CGameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		m2rFlag = true;
 		break;
 	case EventKeyboard::KeyCode::KEY_ALT:
-		if (tb->GetCharacter()->jumping)
-		{
-			m2uFlag = true;
-		}
-		else
+		if (tb->GetCharacter()->JumpStatus == CCharacter::Idle)
 		{
 			tb->GetCharacter()->Jump();
+		}
+		else if (tb->GetCharacter()->JumpStatus == CCharacter::Jumping || tb->GetCharacter()->JumpStatus == CCharacter::Hanging)
+		{
+			m2uFlag = true;
 		}
 		break;
 	case EventKeyboard::KeyCode::KEY_CTRL:

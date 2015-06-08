@@ -21,8 +21,7 @@ public:
 	void Update(float dt);
 
 	int jumpCount;
-	bool jumping;
-	bool hanging;
+	enum JumpState { Idle, Jumping, Hanging, End } JumpStatus;
 
 	void MoveLeft();
 	void MoveRight();

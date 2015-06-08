@@ -14,7 +14,8 @@ private:
 	cocos2d::Vec2 Brick00Pos;
 	int rows, cols;
 
-	bool IsMoveablePlace(std::list<CBrick*> );
+	bool IsMoveablePlace(std::list<CBrick*>);
+	bool IsHangablePlace(std::list<CBrick*>);
 public:
 	static CBrickTable* Create(int, int, cocos2d::Vec2 = cocos2d::Vec2(0,0));
 	~CBrickTable();

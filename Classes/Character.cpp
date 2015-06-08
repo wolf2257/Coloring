@@ -26,8 +26,7 @@ CCharacter* CCharacter::Create(Vec2 location)
 	chara->AnimStopCount = 0;
 	chara->AnimStatus = Stand;
 	chara->jumpCount = 0;
-	chara->jumping = false;
-	chara->hanging = false;
+	chara->JumpStatus = Idle;
 	return chara;
 }
 
@@ -54,7 +53,7 @@ void CCharacter::MoveLeft()
 		AnimCount = 0;
 	}
 	AnimStopCount = 0;
-	hanging = false;
+	if (JumpStatus == Hanging) JumpStatus = Idle;
 }
 
 void CCharacter::MoveRight()
@@ -79,15 +78,15 @@ void CCharacter::MoveRight()
 		AnimCount = 0;
 	}
 	AnimStopCount = 0;
-	hanging = false;
+	if (JumpStatus == Hanging) JumpStatus = Idle;
 }
 
 void CCharacter::Jump()
 {
-	if (!jumping)
+	if (JumpStatus == Idle)
 	{
 		jumpCount = 20;
-		jumping = true;
+		JumpStatus = Jumping;
 	}
 }
 
@@ -102,58 +101,65 @@ void CCharacter::Update(float dt)
 
 void CCharacter::JumpTick()
 {
-	if (jumpCount > 0 && !hanging)
+	if (JumpStatus == Jumping)
 	{
 		this->SetLocation(this->GetLocation() + Vec2(0, this->speed));
-		jumpCount--;
+		if (jumpCount-- == 0)
+		{
+			JumpStatus = End;
+		}
 	}
 }
 
 
 void CCharacter::MoveUp()
 {
-	this->SetLocation(this->GetLocation() + Vec2(0, this->speed));
-	if (AnimCount++ > 10)
+	if (JumpStatus == Hanging)
 	{
-		switch (AnimStatus)
+		this->SetLocation(this->GetLocation() + Vec2(0, this->speed));
+		if (AnimCount++ > 10)
 		{
-		case CCharacter::Stand:
-		case CCharacter::Walk2:
-			this->sprite->setTexture(animations.at("Walk1"));
-			AnimStatus = Walk1;
-			break;
-		case CCharacter::Walk1:
-			this->sprite->setTexture(animations.at("Walk2"));
-			AnimStatus = Walk2;
-			break;
+			switch (AnimStatus)
+			{
+			case CCharacter::Stand:
+			case CCharacter::Walk2:
+				this->sprite->setTexture(animations.at("Walk1"));
+				AnimStatus = Walk1;
+				break;
+			case CCharacter::Walk1:
+				this->sprite->setTexture(animations.at("Walk2"));
+				AnimStatus = Walk2;
+				break;
+			}
+			AnimCount = 0;
 		}
-		AnimCount = 0;
+		AnimStopCount = 0;
+		jumpCount = 0;
 	}
-	AnimStopCount = 0;
-	jumpCount = 0;
-	hanging = true;
 }
 
 void CCharacter::MoveDown()
 {
-	this->SetLocation(this->GetLocation() + Vec2(0, -this->speed));
-	if (AnimCount++ > 10)
+	if (JumpStatus == Hanging)
 	{
-		switch (AnimStatus)
+		this->SetLocation(this->GetLocation() + Vec2(0, -this->speed));
+		if (AnimCount++ > 10)
 		{
-		case CCharacter::Stand:
-		case CCharacter::Walk2:
-			this->sprite->setTexture(animations.at("Walk1"));
-			AnimStatus = Walk1;
-			break;
-		case CCharacter::Walk1:
-			this->sprite->setTexture(animations.at("Walk2"));
-			AnimStatus = Walk2;
-			break;
+			switch (AnimStatus)
+			{
+			case CCharacter::Stand:
+			case CCharacter::Walk2:
+				this->sprite->setTexture(animations.at("Walk1"));
+				AnimStatus = Walk1;
+				break;
+			case CCharacter::Walk1:
+				this->sprite->setTexture(animations.at("Walk2"));
+				AnimStatus = Walk2;
+				break;
+			}
+			AnimCount = 0;
 		}
-		AnimCount = 0;
+		AnimStopCount = 0;
+		jumpCount = 0;
 	}
-	AnimStopCount = 0;
-	jumpCount = 0;
-	hanging = true;
 }
