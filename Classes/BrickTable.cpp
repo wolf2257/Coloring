@@ -124,10 +124,12 @@ void CBrickTable::Update(float ut)
 	else if (IsMoveablePlace(GetBricks(Character->GetPosition() + Vec2(0, 1))))
 	{
 		this->Character->SetLocation(this->Character->GetLocation() - Vec2(0, this->Character->GetSpeed()));
+		Character->Remaining = true;
 	}
 	else
 	{
 		Character->JumpStatus = Character->Idle;
+		Character->Remaining = false;
 	}
 }
 
@@ -137,14 +139,16 @@ void CBrickTable::MoveCharacter(CBrickTable::CharAction direction)
 	{
 	case CBrickTable::MoveLeft:
 		if (Character->JumpStatus != CCharacter::Hanging)
-		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() + Vec2(Character->GetSize().width / 2, 0)) + Vec2(-1, 0))))
+		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() + Vec2(Character->GetSize().width / 2, 0)) + Vec2(-1, 0))) &&
+			(!Character->Remaining || IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(-1, 1)))))
 		{
 			this->Character->MoveLeft();
 		}
 		break;
 	case CBrickTable::MoveRight:
 		if (Character->JumpStatus != CCharacter::Hanging)
-		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(1, 0))))
+		if (   IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(1, 0))) &&
+			   (!Character->Remaining || IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(1, 1))))   )
 		{
 			this->Character->MoveRight();
 		}

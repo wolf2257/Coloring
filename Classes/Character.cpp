@@ -21,12 +21,13 @@ CCharacter* CCharacter::Create(Vec2 location)
 	chara->sprite = Sprite::createWithTexture(animations.at("Stand"));
 	chara->sprite->setPosition(location);
 	chara->sprite->setAnchorPoint(Vec2(0.5, 0.7));
-	chara->SetSpeed(3);
+	chara->SetSpeed(4);
 	chara->AnimCount = 0;
 	chara->AnimStopCount = 0;
 	chara->AnimStatus = Stand;
 	chara->jumpCount = 0;
 	chara->JumpStatus = Idle;
+	chara->Remaining = false;
 	return chara;
 }
 
@@ -87,11 +88,13 @@ void CCharacter::Jump()
 	{
 		jumpCount = 20;
 		JumpStatus = Jumping;
+		Remaining = true;
 	}
 }
 
 void CCharacter::Update(float dt)
 {
+	CCLOG("%s", (Remaining) ? "Air": "None");
 	if (AnimStopCount++ > 10)
 	{
 		this->sprite->setTexture(animations.at("Stand"));
