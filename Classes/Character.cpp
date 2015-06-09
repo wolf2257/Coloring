@@ -94,7 +94,6 @@ void CCharacter::Jump()
 
 void CCharacter::Update(float dt)
 {
-	CCLOG("%s", (Remaining) ? "Air": "None");
 	if (AnimStopCount++ > 10)
 	{
 		this->sprite->setTexture(animations.at("Stand"));

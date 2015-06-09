@@ -1,24 +1,24 @@
-#include "BrickTable.h"
+#include "StageTable.h"
 #include "ColoringPallet.h"
 
 using namespace std;
 USING_NS_CC;
 
-Vec2 CBrickTable::BrickSize = Vec2(50, 50);
+Vec2 CStageTable::BrickSize = Vec2(50, 50);
 
-CBrickTable::CBrickTable()
+CStageTable::CStageTable()
 {
 }
 
 
-CBrickTable::~CBrickTable()
+CStageTable::~CStageTable()
 {
 }
 
 
-CBrickTable* CBrickTable::Create(int rows, int cols, Vec2 Axis)
+CStageTable* CStageTable::Create(int rows, int cols, Vec2 Axis)
 {
-	auto Table = new CBrickTable();
+	auto Table = new CStageTable();
 
 	Table->rows = rows;
 	Table->cols = cols;
@@ -36,14 +36,14 @@ CBrickTable* CBrickTable::Create(int rows, int cols, Vec2 Axis)
 	return Table;
 }
 
-void CBrickTable::Add(CBrick* brick, Vec2 position)
+void CStageTable::Add(CBrick* brick, Vec2 position)
 {
 	brick->SetPosition(position);
 	brick->SetLocation(GetBrickLocation(position));
 	table.push_back(brick);
 }
 
-std::list<CBrick*>  CBrickTable::GetBricks(Vec2 position)
+std::list<CBrick*>  CStageTable::GetBricks(Vec2 position)
 {
 	auto list = std::list<CBrick*>();
 	for (auto itr = table.begin(); itr != table.end(); ++itr) {
@@ -57,7 +57,7 @@ std::list<CBrick*>  CBrickTable::GetBricks(Vec2 position)
 	return list;
 }
 
-void CBrickTable::RemoveBrick(Vec2 position)
+void CStageTable::RemoveBrick(Vec2 position)
 {
 	for each (auto var in GetBricks(position))
 	{
@@ -65,31 +65,31 @@ void CBrickTable::RemoveBrick(Vec2 position)
 	}
 }
 
-bool CBrickTable::AddCharacter(Vec2 position)
+bool CStageTable::AddCharacter(Vec2 position)
 {
 	this->Character = CCharacter::Create(GetBrickLocation(position));
 	this->Character->SetPosition(position);
 	return true;
 }
 
-CCharacter* CBrickTable::GetCharacter()
+CCharacter* CStageTable::GetCharacter()
 {
 	return this->Character;
 }
 
-bool CBrickTable::RemoveCharacter()
+bool CStageTable::RemoveCharacter()
 {
 	return false;
 }
 
-Vec2 CBrickTable::GetBrickLocation(Vec2 position)
+Vec2 CStageTable::GetBrickLocation(Vec2 position)
 {
 	return Vec2(
 		Brick00Pos.x + position.x * BrickSize.x,
 		Brick00Pos.y - position.y * BrickSize.y);
 }
 
-void CBrickTable::AttatchAll(Layer* layer, int zOrder)
+void CStageTable::AttatchAll(Layer* layer, int zOrder)
 {
 	for (auto itr = table.begin(); itr != table.end(); ++itr) {
 		(*itr)->Attatch(layer, zOrder);
@@ -98,7 +98,7 @@ void CBrickTable::AttatchAll(Layer* layer, int zOrder)
 	this->VerficationBrickVisibleState(0);
 }
 
-void CBrickTable::Update(float ut)
+void CStageTable::Update(float ut)
 {
 	this->Character->SetPosition(AdjustObjPos(this->Character->GetLocation()));
 	this->Character->Update(ut);
@@ -135,11 +135,11 @@ void CBrickTable::Update(float ut)
 	}
 }
 
-void CBrickTable::MoveCharacter(CBrickTable::CharAction direction)
+void CStageTable::MoveCharacter(CStageTable::CharAction direction)
 {
 	switch (direction)
 	{
-	case CBrickTable::MoveLeft:
+	case CStageTable::MoveLeft:
 		if (Character->JumpStatus != CCharacter::Hanging)
 		if (IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() + Vec2(Character->GetSize().width / 2, 0)) + Vec2(-1, 0))) &&
 			(!Character->Remaining || IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(-1, 1)))))
@@ -147,7 +147,7 @@ void CBrickTable::MoveCharacter(CBrickTable::CharAction direction)
 			this->Character->MoveLeft();
 		}
 		break;
-	case CBrickTable::MoveRight:
+	case CStageTable::MoveRight:
 		if (Character->JumpStatus != CCharacter::Hanging)
 		if (   IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(1, 0))) &&
 			   (!Character->Remaining || IsMoveablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(1, 1))))   )
@@ -155,13 +155,13 @@ void CBrickTable::MoveCharacter(CBrickTable::CharAction direction)
 			this->Character->MoveRight();
 		}
 		break;
-	case CBrickTable::MoveUp:
+	case CStageTable::MoveUp:
 		if (IsHangablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(0, 0))))
 		{
 			this->Character->MoveUp();
 		}
 		break;
-	case CBrickTable::MoveDown:
+	case CStageTable::MoveDown:
 		if (IsHangablePlace(GetBricks(AdjustObjPos(this->Character->GetLocation() - Vec2(Character->GetSize().width / 2, 0)) + Vec2(0, 1))))
 		{
 			this->Character->MoveDown();
@@ -172,7 +172,7 @@ void CBrickTable::MoveCharacter(CBrickTable::CharAction direction)
 	}
 }
 
-bool CBrickTable::IsMoveablePlace(std::list<CBrick*>  brick)
+bool CStageTable::IsMoveablePlace(std::list<CBrick*>  brick)
 {
 	if (brick.size() > 0)
 	{
@@ -200,7 +200,7 @@ bool CBrickTable::IsMoveablePlace(std::list<CBrick*>  brick)
 	return true;
 }
 
-bool CBrickTable::IsHangablePlace(std::list<CBrick*>  brick)
+bool CStageTable::IsHangablePlace(std::list<CBrick*>  brick)
 {
 	if (Character->JumpStatus == Character->Jumping)
 	{
@@ -245,7 +245,7 @@ bool CBrickTable::IsHangablePlace(std::list<CBrick*>  brick)
 	return false;
 }
 
-Vec2 CBrickTable::AdjustObjPos(Vec2 location)
+Vec2 CStageTable::AdjustObjPos(Vec2 location)
 {
 	return Vec2(
 		round((location.x - Brick00Pos.x) / BrickSize.x),
@@ -253,7 +253,7 @@ Vec2 CBrickTable::AdjustObjPos(Vec2 location)
 		);
 }
 
-int CBrickTable::Coloring()
+int CStageTable::Coloring()
 {
 	int color = -1;
 	for each (auto var in this->GetBricks(this->GetCharacter()->GetPosition()))
@@ -289,7 +289,7 @@ int CBrickTable::Coloring()
 
 }
 
-void CBrickTable::VerficationBrickVisibleState(int color)
+void CStageTable::VerficationBrickVisibleState(int color)
 {
 	for each (auto var in table)
 	{

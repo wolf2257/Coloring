@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 #include "Brick.h"
-#include "BrickTable.h"
+#include "StageTable.h"
 #include "Character.h"
 #include "ColoringPallet.h"
 
@@ -30,7 +30,7 @@ private:
 
 	// implement the "static create()" method manually
 	cocos2d::Sprite *LeftButton, *RightButton, *JumpButton;
-	CBrickTable *tb;
+	CStageTable *tb;
 	CColoringPallet *cp;
 
 	bool m2lFlag, m2rFlag, m2uFlag;

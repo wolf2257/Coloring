@@ -72,7 +72,10 @@
     <ClCompile Include="..\Classes\ColoringPallet.cpp">
       <Filter>src\Scene\IngameScene\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\BrickTable.cpp">
+    <ClCompile Include="..\Classes\Bullet.cpp">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageTable.cpp">
       <Filter>src\Scene\IngameScene\Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,9 +104,6 @@
     <ClInclude Include="..\Classes\Brick.h">
       <Filter>src\Scene\IngameScene\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\BrickTable.h">
-      <Filter>src\Scene\IngameScene\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\DecideHolder.h">
       <Filter>src\Scene\MenuScene\Objects</Filter>
     </ClInclude>
@@ -117,6 +117,12 @@
       <Filter>src\Scene\IngameScene\Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ColoringPallet.h">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Bullet.h">
+      <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageTable.h">
       <Filter>src\Scene\IngameScene\Objects</Filter>
     </ClInclude>
   </ItemGroup>

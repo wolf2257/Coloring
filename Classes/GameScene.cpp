@@ -83,7 +83,7 @@ bool CGameScene::init()
 
 #endif
 
-	tb = CBrickTable::Create(18, 10, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	tb = CStageTable::Create(18, 10, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	tb->AddCharacter(Vec2(2, 7));
 
 	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(14, 1));
@@ -190,15 +190,15 @@ void CGameScene::update(float dt)
 {
 	if (m2lFlag)
 	{
-		tb->MoveCharacter(CBrickTable::CharAction::MoveLeft);
+		tb->MoveCharacter(CStageTable::CharAction::MoveLeft);
 	}
 	else if (m2rFlag)
 	{
-		tb->MoveCharacter(CBrickTable::CharAction::MoveRight);
+		tb->MoveCharacter(CStageTable::CharAction::MoveRight);
 	}
 	else if (m2uFlag)
 	{
-		tb->MoveCharacter(CBrickTable::CharAction::MoveUp);
+		tb->MoveCharacter(CStageTable::CharAction::MoveUp);
 	}
 	tb->Update(dt);
 }
