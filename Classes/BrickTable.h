@@ -13,7 +13,7 @@ private:
 	CCharacter* Character;
 	cocos2d::Vec2 Brick00Pos;
 	int rows, cols;
-
+	int currentColor;
 	bool IsMoveablePlace(std::list<CBrick*>);
 	bool IsHangablePlace(std::list<CBrick*>);
 public:
@@ -38,6 +38,7 @@ public:
 	enum CharAction { MoveLeft, MoveRight, MoveUp, MoveDown };
 	void MoveCharacter(CharAction Act);
 	int Coloring();
+	void VerficationBrickVisibleState(int color);
 };
 
 #endif

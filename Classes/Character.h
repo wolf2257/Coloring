@@ -22,6 +22,7 @@ public:
 
 	int jumpCount;
 	enum JumpState { Idle, Jumping, Hanging, End } JumpStatus;
+	bool Remaining;
 
 	void MoveLeft();
 	void MoveRight();

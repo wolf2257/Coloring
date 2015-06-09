@@ -10,6 +10,7 @@ protected:
 	float speed;
 	cocos2d::Vec2 position;
 	bool filp;
+	bool visible;
 public:
 	~CGameObject();
 	void Attatch(cocos2d::Layer*, int);
@@ -23,6 +24,11 @@ public:
 	inline void SetSize(cocos2d::Size location) { this->sprite->setContentSize(location); }
 	inline float GetSpeed() { return speed; }
 	inline void SetSpeed(float speed) { this->speed = speed; }
+	inline void Show() { this->sprite->setOpacity(255); visible = true; }
+	inline void Hide() { this->sprite->setOpacity(50); visible = false; }
+	inline bool GetVisible() { return visible; }
+
+	enum Pallets { Empty, Red, Green, Yellow };
 };
 
 #endif

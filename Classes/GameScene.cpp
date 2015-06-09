@@ -81,13 +81,11 @@ bool CGameScene::init()
 	keylistener->onKeyReleased = CC_CALLBACK_2(CGameScene::onKeyReleased, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(keylistener, this);
 
-
 #endif
 
 	tb = CBrickTable::Create(18, 10, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	tb->AddCharacter(Vec2(2, 7));
 
-#ifndef Terrians  
 	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(14, 1));
 	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(15, 1));
 	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen), Vec2(16, 1));
@@ -150,15 +148,12 @@ bool CGameScene::init()
 	tb->Add(CBrick::Create(CBrick::BrickType::Water), Vec2(15, 9));
 	tb->Add(CBrick::Create(CBrick::BrickType::Water), Vec2(16, 9));
 	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(17, 9));
-#endif
 
-#ifndef Trees
 	tb->Add(CBrick::Create(CBrick::BrickType::TreeRed), Vec2(1, 1));
 	tb->Add(CBrick::Create(CBrick::BrickType::AuraRed), Vec2(1, 1));
 
 	tb->Add(CBrick::Create(CBrick::BrickType::TreeGreen), Vec2(11, 6));
 	tb->Add(CBrick::Create(CBrick::BrickType::AuraGreen), Vec2(11, 6));
-#endif
 
 	tb->Add(CBrick::Create(CBrick::BrickType::RopeHead), Vec2(5, 1));
 	tb->Add(CBrick::Create(CBrick::BrickType::Rope), Vec2(5, 2));
@@ -172,7 +167,8 @@ bool CGameScene::init()
 	tb->Add(CBrick::Create(CBrick::BrickType::Invisible), Vec2(14, 0));
 	tb->Add(CBrick::Create(CBrick::BrickType::Invisible), Vec2(16, 0));
 
-	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround), Vec2(9, 8));
+	tb->Add(CBrick::Create(CBrick::BrickType::GlassRed, CGameObject::Pallets::Red), Vec2(9, 8));
+	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround, CGameObject::Pallets::Red), Vec2(9, 9));
 
 	tb->AttatchAll(this, 1);
 

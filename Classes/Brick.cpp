@@ -11,7 +11,7 @@ CBrick::~CBrick()
 {
 }
 
-CBrick* CBrick::Create(BrickType type, Vec2 location)
+CBrick* CBrick::Create(BrickType type, CGameObject::Pallets revelation, Vec2 location)
 {
 	auto Brick = new CBrick();
 	Brick->Type = type;
@@ -75,5 +75,21 @@ CBrick* CBrick::Create(BrickType type, Vec2 location)
 		break;
 	}
 	Brick->sprite->setPosition(location);
+	Brick->RevelationColor = revelation;
 	return Brick;
+}
+
+void CBrick::VerficationVisibleState(Pallets currentColoring)
+{
+	if (this->RevelationColor == Pallets::Empty) return;
+
+	if (this->RevelationColor == currentColoring)
+	{
+		this->Show();
+	}
+	else
+	{
+		this->Hide();
+	}
+
 }
