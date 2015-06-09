@@ -22,6 +22,7 @@ CBrickTable* CBrickTable::Create(int rows, int cols, Vec2 Axis)
 
 	Table->rows = rows;
 	Table->cols = cols;
+	Table->currentColor = 0;
 
 	// Array allocation
 	//Table->table = new CBrick**[cols];
@@ -47,7 +48,7 @@ std::list<CBrick*>  CBrickTable::GetBricks(Vec2 position)
 	auto list = std::list<CBrick*>();
 	for (auto itr = table.begin(); itr != table.end(); ++itr) {
 		auto itrPos = (*itr)->GetPosition();
-		if (itrPos.x == position.x && itrPos.y == position.y)
+		if (itrPos.x == position.x && itrPos.y == position.y && (*itr)->GetVisible() == true)
 		{
 			list.push_back(*itr);
 		}
@@ -94,6 +95,7 @@ void CBrickTable::AttatchAll(Layer* layer, int zOrder)
 		(*itr)->Attatch(layer, zOrder);
 	}
 	Character->Attatch(layer, zOrder);
+	this->VerficationBrickVisibleState(0);
 }
 
 void CBrickTable::Update(float ut)
@@ -186,6 +188,8 @@ bool CBrickTable::IsMoveablePlace(std::list<CBrick*>  brick)
 			case CBrick::BrickType::TreeYellow:
 			case CBrick::BrickType::Rope:
 			case CBrick::BrickType::RopeHead:
+			case CBrick::BrickType::Water:
+			case CBrick::BrickType::WaterHead:
 				continue;
 			default:
 				return false;
@@ -251,6 +255,7 @@ Vec2 CBrickTable::AdjustObjPos(Vec2 location)
 
 int CBrickTable::Coloring()
 {
+	int color = -1;
 	for each (auto var in this->GetBricks(this->GetCharacter()->GetPosition()))
 	{
 		if (var != nullptr)
@@ -258,16 +263,36 @@ int CBrickTable::Coloring()
 			switch (var->Type)
 			{
 			case CBrick::BrickType::AuraRed:
-				return 1;
+				if (currentColor == 0)
+					currentColor = 1;
+				else
+					currentColor = 3;
 				break;
 			case CBrick::BrickType::AuraGreen:
-				return 2;
+				if (currentColor == 2)
+					currentColor = 1;
+				else
+					currentColor = 3;
 				break;
 			case CBrick::BrickType::AuraYellow:
-				return 3;
+				currentColor = 3;
+				break;
+			default:
+				currentColor = 0;
 				break;
 			}
 		}
 	}
 
+	VerficationBrickVisibleState(currentColor);
+	return currentColor;
+
+}
+
+void CBrickTable::VerficationBrickVisibleState(int color)
+{
+	for each (auto var in table)
+	{
+		var->VerficationVisibleState((CGameObject::Pallets)color);
+	}
 }

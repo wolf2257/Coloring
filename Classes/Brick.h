@@ -14,10 +14,12 @@ public:
 		TreeRed, TreeGreen, TreeYellow,
 		AuraRed, AuraGreen, AuraYellow } 
 	Type;
+	Pallets RevelationColor;
 private:
 	CBrick();
 public:
-	static CBrick* Create(BrickType, cocos2d::Vec2 = cocos2d::Vec2(0, 0));
+	static CBrick* Create(BrickType, CGameObject::Pallets = CGameObject::Pallets::Empty, cocos2d::Vec2 = cocos2d::Vec2(0, 0));
+	void VerficationVisibleState(Pallets currentColoring);
 	~CBrick();
 };
 
