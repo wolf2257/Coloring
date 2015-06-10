@@ -24,6 +24,9 @@
 #include "GameSharing.h"
 
 USING_NS_CC;
+std::function<void()> GameSharing::errorHandler = []() -> void {
+	return;
+};
 
 bool GameSharing::bIsGPGAvailable = true;
 bool GameSharing::wasGPGAvailableCalled = false;
