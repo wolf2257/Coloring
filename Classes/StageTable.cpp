@@ -22,7 +22,7 @@ CStageTable* CStageTable::Create(int rows, int cols, Vec2 Axis)
 
 	Table->rows = rows;
 	Table->cols = cols;
-	Table->currentColor = 0;
+	Table->currentColor = CGameObject::Pallets::Empty;
 
 	// Array allocation
 	//Table->table = new CBrick**[cols];
@@ -132,6 +132,10 @@ void CStageTable::Update(float ut)
 	{
 		Character->JumpStatus = Character->Idle;
 		Character->Remaining = false;
+	}
+	for each (auto var in bullets)
+	{
+		var->Update(ut);
 	}
 }
 
@@ -263,22 +267,27 @@ int CStageTable::Coloring()
 			switch (var->Type)
 			{
 			case CBrick::BrickType::AuraRed:
-				if (currentColor == 0)
-					currentColor = 1;
+				if (currentColor == CGameObject::Pallets::Green)
+					currentColor = CGameObject::Pallets::Yellow;
 				else
-					currentColor = 3;
+					currentColor = CGameObject::Pallets::Red;
 				break;
 			case CBrick::BrickType::AuraGreen:
-				if (currentColor == 2)
-					currentColor = 1;
+				if (currentColor == CGameObject::Pallets::Red)
+					currentColor = CGameObject::Pallets::Yellow;
 				else
-					currentColor = 3;
+					currentColor = CGameObject::Pallets::Green;
 				break;
 			case CBrick::BrickType::AuraYellow:
-				currentColor = 3;
+				currentColor = CGameObject::Pallets::Yellow;
 				break;
 			default:
-				currentColor = 0;
+				if (currentColor == CGameObject::Pallets::Yellow)
+				{
+					LaunchBullet();
+				}
+
+				currentColor = CGameObject::Pallets::Empty;
 				break;
 			}
 		}
@@ -295,4 +304,9 @@ void CStageTable::VerficationBrickVisibleState(int color)
 	{
 		var->VerficationVisibleState((CGameObject::Pallets)color);
 	}
+}
+
+void CStageTable::LaunchBullet()
+{
+
 }

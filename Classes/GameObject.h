@@ -29,6 +29,7 @@ public:
 	inline bool GetVisible() { return visible; }
 
 	enum Pallets { Empty, Red, Green, Yellow };
+	enum Direction { Left, Right };
 };
 
 #endif

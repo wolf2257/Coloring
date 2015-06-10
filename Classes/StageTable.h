@@ -11,11 +11,11 @@ class CStageTable
 private:
 	CStageTable();
 	std::list<CBrick*> table;
-	std::list<CBrick*> bullets;
+	std::list<CBullet*> bullets;
 	CCharacter* Character;
 	cocos2d::Vec2 Brick00Pos;
 	int rows, cols;
-	int currentColor;
+	CGameObject::Pallets currentColor;
 	bool IsMoveablePlace(std::list<CBrick*>);
 	bool IsHangablePlace(std::list<CBrick*>);
 public:
@@ -41,6 +41,7 @@ public:
 	void MoveCharacter(CharAction Act);
 	int Coloring();
 	void VerficationBrickVisibleState(int color);
+	void LaunchBullet();
 };
 
 #endif
