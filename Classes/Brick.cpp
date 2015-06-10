@@ -39,15 +39,15 @@ CBrick* CBrick::Create(BrickType type, CGameObject::Pallets revelation, Vec2 loc
 
 	case BrickType::TreeRed:
 		Brick->sprite = Sprite::create("GameObjects/Tree_Red.png");
-		Brick->sprite->setAnchorPoint(Vec2(0.5, 0.21));
+		Brick->sprite->setAnchorPoint(Vec2(0.5, 0.25));
 		break;
 	case BrickType::TreeGreen:
 		Brick->sprite = Sprite::create("GameObjects/Tree_Green.png");
-		Brick->sprite->setAnchorPoint(Vec2(0.5, 0.21));
+		Brick->sprite->setAnchorPoint(Vec2(0.5, 0.25));
 		break;
 	case BrickType::TreeYellow:
 		Brick->sprite = Sprite::create("GameObjects/Tree_Yellow.png");
-		Brick->sprite->setAnchorPoint(Vec2(0.5, 0.21));
+		Brick->sprite->setAnchorPoint(Vec2(0.5, 0.25));
 		break;
 
 	case BrickType::AuraRed:
