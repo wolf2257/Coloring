@@ -125,15 +125,8 @@ void CStageTable::Update(float ut)
 		{
 			if ((*brick)->isDestroy)
 			{
- 				auto p = *brick;
-				for (auto b = table.begin(); b != table.end(); b++)
-				{
-					if ((*b) == p)
-					{
-						table.erase(b);
-						break;
-					}
-				}
+				auto p = *brick;
+				table.remove(table.First(x=> x==p));
 				DeleteObject(p);
 
 				auto p2 = *var;
@@ -149,6 +142,7 @@ void CStageTable::Update(float ut)
 		}
 		if (isBulletDeleted)
 		{
+			var++;
 			continue;
 		}
 

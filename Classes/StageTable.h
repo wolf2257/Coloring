@@ -10,20 +10,24 @@ class CStageTable
 {
 private:
 	CStageTable();
-	std::list<CBrick*> table;
+	std::list<CGameObject*> table;
 	std::list<CBullet*> bullets;
 	CCharacter* Character;
 	cocos2d::Vec2 Brick00Pos;
 	int rows, cols;
 	CGameObject::Pallets currentColor;
-	bool IsMoveablePlace(std::list<CBrick*>);
-	bool IsHangablePlace(std::list<CBrick*>);
+	bool IsMoveablePlace(std::list<CGameObject*>);
+	bool IsHangablePlace(std::list<CGameObject*>);
+	cocos2d::Layer* layer;
+	cocos2d::Rect VisibleSize;
+
+	void DeleteObject(CGameObject* object);
 public:
-	static CStageTable* Create(int, int, cocos2d::Vec2 = cocos2d::Vec2(0,0));
+	static CStageTable* Create(cocos2d::Layer*, int, int, cocos2d::Vec2 = cocos2d::Vec2(0, 0));
 	~CStageTable();
 
-	void Add(CBrick* brick, cocos2d::Vec2 position);
-	std::list<CBrick*> GetBricks(cocos2d::Vec2 position);
+	void Add(CGameObject* brick, cocos2d::Vec2 position);
+	std::list<CGameObject*> GetBricks(cocos2d::Vec2 position);
 	void RemoveBrick(cocos2d::Vec2 position);
 
 	bool AddCharacter(cocos2d::Vec2 position);
@@ -31,7 +35,7 @@ public:
 	bool RemoveCharacter();
 
 	void Update(float ut);
-	void AttatchAll(cocos2d::Layer*, int);
+	void AttatchAll();
 
 	static cocos2d::Vec2 BrickSize;
 	cocos2d::Vec2 GetBrickLocation(cocos2d::Vec2 position);
@@ -40,6 +44,7 @@ public:
 	enum CharAction { MoveLeft, MoveRight, MoveUp, MoveDown };
 	void MoveCharacter(CharAction Act);
 	int Coloring();
+	void Coloring(CGameObject::Pallets i);
 	void VerficationBrickVisibleState(int color);
 	void LaunchBullet();
 };

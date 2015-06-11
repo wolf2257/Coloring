@@ -118,40 +118,17 @@ void CStageTable::Update(float ut)
 
 	for (auto var = bullets.begin(); var != bullets.end();)
 	{
-		bool isBulletDeleted = false;
 		(*var)->SetPosition(AdjustObjPos((*var)->GetLocation()));
-		auto bricks = GetBricks((*var)->GetPosition() + Vec2(0, 0));
-		for (auto brick = bricks.begin(); brick != bricks.end();)
+		for (auto var = bullets.begin(); var != bullets.end();)
+		for each (auto brick in GetBricks((*var)->GetPosition() + Vec2(0, 0)))
 		{
-			if ((*brick)->isDestroy)
+			if (brick->isDestroy)
 			{
- 				auto p = *brick;
-				for (auto b = table.begin(); b != table.end(); b++)
-				{
-					if ((*b) == p)
-					{
-						table.erase(b);
-						break;
-					}
-				}
-				DeleteObject(p);
-
-				auto p2 = *var;
-				bullets.erase(var++);
-				DeleteObject(p2);
-				isBulletDeleted = true;
-				break;
-			}
-			else
-			{
-				brick++;
+				auto pointer = *brick;
+				bullets.erase(brick++);
+				DeleteObject(pointer);
 			}
 		}
-		if (isBulletDeleted)
-		{
-			continue;
-		}
-
 		if (!VisibleSize.containsPoint((*var)->GetLocation()))
 		{
 			auto pointer = *var;

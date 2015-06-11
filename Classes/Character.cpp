@@ -28,6 +28,9 @@ CCharacter* CCharacter::Create(Vec2 location)
 	chara->jumpCount = 0;
 	chara->JumpStatus = Idle;
 	chara->Remaining = false;
+	chara->zOrder = LayerZOrders::Player;
+	chara->RevelationColor = CGameObject::Pallets::Empty;
+	chara->Type = CGameObject::BrickType::Air;
 	return chara;
 }
 

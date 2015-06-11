@@ -5,21 +5,10 @@
 
 class CBrick : public CGameObject
 {
-public:
-	enum BrickType {
-		Invisible,
-		EmptyGround, GlassGreen, GlassRed, WaterHead, Water,
-		RopeHead, Rope,
-		Log, Basket,
-		TreeRed, TreeGreen, TreeYellow,
-		AuraRed, AuraGreen, AuraYellow } 
-	Type;
-	Pallets RevelationColor;
 private:
 	CBrick();
 public:
-	static CBrick* Create(BrickType, CGameObject::Pallets = CGameObject::Pallets::Empty, cocos2d::Vec2 = cocos2d::Vec2(0, 0));
-	void VerficationVisibleState(Pallets currentColoring);
+	static CBrick* Create(BrickType, CGameObject::Pallets, LayerZOrders);
 	~CBrick();
 };
 

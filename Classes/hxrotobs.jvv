@@ -149,31 +149,28 @@ bool CGameScene::init()
 	tb->Add(CBrick::Create(CBrick::BrickType::Water, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(16, 9));
 	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(17, 9));
 
-	tb->Add(CBrick::Create(CBrick::BrickType::TreeRed, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(1, 1));
-	tb->Add(CBrick::Create(CBrick::BrickType::AuraRed, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(1, 1));
+	tb->Add(CBrick::Create(CBrick::BrickType::TreeRed, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(1, 1));
+	tb->Add(CBrick::Create(CBrick::BrickType::AuraRed, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(1, 1));
 
-	tb->Add(CBrick::Create(CBrick::BrickType::TreeGreen, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(11, 6));
-	tb->Add(CBrick::Create(CBrick::BrickType::AuraGreen, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(11, 6));
+	tb->Add(CBrick::Create(CBrick::BrickType::TreeGreen, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(11, 6));
+	tb->Add(CBrick::Create(CBrick::BrickType::AuraGreen, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(11, 6));
 
-	tb->Add(CBrick::Create(CBrick::BrickType::RopeHead, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 1));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 2));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 3));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 4));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 5));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 6));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 7));
+	tb->Add(CBrick::Create(CBrick::BrickType::RopeHead, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(5, 1));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(5, 2));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(5, 3));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(5, 4));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(5, 5));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(5, 6));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(5, 7));
 
-	tb->Add(CBrick::Create(CBrick::BrickType::Log, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(15, 0));
-	tb->Add(CBrick::Create(CBrick::BrickType::Invisible, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(14, 0));
-	tb->Add(CBrick::Create(CBrick::BrickType::Invisible, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(16, 0));
+	tb->Add(CBrick::Create(CBrick::BrickType::Log, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(15, 0));
+	tb->Add(CBrick::Create(CBrick::BrickType::Invisible, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(14, 0));
+	tb->Add(CBrick::Create(CBrick::BrickType::Invisible, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(16, 0));
 
 	tb->Add(CBrick::Create(CBrick::BrickType::GlassRed, CGameObject::Pallets::Red, CGameObject::LayerZOrders::Terrians), Vec2(9, 8));
 	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround, CGameObject::Pallets::Red, CGameObject::LayerZOrders::Terrians), Vec2(9, 9));
 
-
-	tb->Add(CBrick::Create(CBrick::BrickType::Log, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(7, 0));
-
-	tb->AttatchAll();
+	tb->AttatchAll(1);
 
 	return true;
 }
@@ -291,10 +288,6 @@ void CGameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		break;
 	case EventKeyboard::KeyCode::KEY_CTRL:
 		this->cp->Coloring((CColoringPallet::Pallets)tb->Coloring());
-		break;
-	case EventKeyboard::KeyCode::KEY_1:
-		this->tb->Coloring(CGameObject::Pallets::Yellow);
-		this->cp->Coloring(CGameObject::Pallets::Yellow);
 		break;
 	}
 }

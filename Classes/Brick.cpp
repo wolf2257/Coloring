@@ -11,7 +11,7 @@ CBrick::~CBrick()
 {
 }
 
-CBrick* CBrick::Create(BrickType type, CGameObject::Pallets revelation, Vec2 location)
+CBrick* CBrick::Create(BrickType type, CGameObject::Pallets revelation, LayerZOrders zorder)
 {
 	auto Brick = new CBrick();
 	Brick->Type = type;
@@ -26,6 +26,7 @@ CBrick* CBrick::Create(BrickType type, CGameObject::Pallets revelation, Vec2 loc
 		break;
 	case BrickType::GlassGreen:
 		Brick->sprite = Sprite::create("GameObjects/Glass_Green.png");
+		Brick->isDestroy = true;
 		break;
 	case BrickType::GlassRed:
 		Brick->sprite = Sprite::create("GameObjects/Glass_Red.png");
@@ -62,6 +63,7 @@ CBrick* CBrick::Create(BrickType type, CGameObject::Pallets revelation, Vec2 loc
 
 	case BrickType::Log:
 		Brick->sprite = Sprite::create("GameObjects/log.png");
+		Brick->isGraviry = true;
 		break;
 	case BrickType::Basket:
 		Brick->sprite = Sprite::create("GameObjects/Basket.png");
@@ -74,22 +76,7 @@ CBrick* CBrick::Create(BrickType type, CGameObject::Pallets revelation, Vec2 loc
 		Brick->sprite = Sprite::create("GameObjects/Rope.png");;
 		break;
 	}
-	Brick->sprite->setPosition(location);
 	Brick->RevelationColor = revelation;
+	Brick->zOrder = zorder;
 	return Brick;
-}
-
-void CBrick::VerficationVisibleState(Pallets currentColoring)
-{
-	if (this->RevelationColor == Pallets::Empty) return;
-
-	if (this->RevelationColor == currentColoring)
-	{
-		this->Show();
-	}
-	else
-	{
-		this->Hide();
-	}
-
 }
