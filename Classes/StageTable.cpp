@@ -8,6 +8,7 @@ Vec2 CStageTable::BrickSize = Vec2(50, 50);
 
 CStageTable::CStageTable()
 {
+	StageEnd = false;
 }
 
 
@@ -62,7 +63,7 @@ std::list<CGameObject*>  CStageTable::GetBricks(Vec2 position)
 
 void CStageTable::RemoveBrick(Vec2 position)
 {
-	for each (auto var in GetBricks(position))
+	for (auto var : GetBricks(position))
 	{
 		table.remove(var);
 	}
@@ -103,7 +104,12 @@ void CStageTable::AttatchAll()
 
 void CStageTable::Update(float ut)
 {
-	for each (auto var in table)
+	if (Character->GetPosition() == EndPoint)
+	{
+		WorldsEnd();
+	}
+
+	for (auto var : table)
 	{
 		var->Update(ut);
 		var->SetPosition(AdjustObjPos(var->GetLocation()));
@@ -121,20 +127,25 @@ void CStageTable::Update(float ut)
 		bool isBulletDeleted = false;
 		(*var)->SetPosition(AdjustObjPos((*var)->GetLocation()));
 		auto bricks = GetBricks((*var)->GetPosition() + Vec2(0, 0));
-		for (auto brick = bricks.begin(); brick != bricks.end();)
+		for (auto brick = bricks.begin(); brick != bricks.end(); brick++)
 		{
-			if ((*brick)->isDestroy)
+			// º­¤¡¿¡ ´êÀ¸¸é ÃÑ¾Ë ÆÄ±«
+			if (!IsMoveablePlace((*brick)))
 			{
- 				auto p = *brick;
-				for (auto b = table.begin(); b != table.end(); b++)
+				// º®ÀÇ ÆÄ±« °¡´É ¿©ºÎ È®
+				if ((*brick)->isDestroy)
 				{
-					if ((*b) == p)
+					auto p = *brick;
+					for (auto b = table.begin(); b != table.end(); b++)
 					{
-						table.erase(b);
-						break;
+						if ((*b) == p)
+						{
+							table.erase(b);
+							break;
+						}
 					}
+					DeleteObject(p);
 				}
-				DeleteObject(p);
 
 				auto p2 = *var;
 				bullets.erase(var++);
@@ -144,7 +155,6 @@ void CStageTable::Update(float ut)
 			}
 			else
 			{
-				brick++;
 			}
 		}
 		if (isBulletDeleted)
@@ -194,7 +204,7 @@ void CStageTable::Update(float ut)
 		Character->JumpStatus = Character->Idle;
 		Character->Remaining = false;
 	}
-	for each (auto var in bullets)
+	for(auto var : bullets)
 	{
 		var->Update(ut);
 	}
@@ -237,29 +247,37 @@ void CStageTable::MoveCharacter(CStageTable::CharAction direction)
 	}
 }
 
-bool CStageTable::IsMoveablePlace(std::list<CGameObject*>  brick)
+bool CStageTable::IsMoveablePlace(CGameObject*  brick)
 {
-	if (brick.size() > 0)
+	switch (brick->Type)
 	{
-		for each (auto var in brick)
+	case CGameObject::BrickType::Air:
+	case CGameObject::BrickType::AuraRed:
+	case CGameObject::BrickType::AuraGreen:
+	case CGameObject::BrickType::AuraYellow:
+	case CGameObject::BrickType::TreeRed:
+	case CGameObject::BrickType::TreeGreen:
+	case CGameObject::BrickType::TreeYellow:
+	case CGameObject::BrickType::Rope:
+	case CGameObject::BrickType::RopeHead:
+	case CGameObject::BrickType::Water:
+	case CGameObject::BrickType::WaterHead:
+	case CGameObject::BrickType::Basket :
+		return true;
+	default:
+		return false;
+	}
+}
+
+bool CStageTable::IsMoveablePlace(std::list<CGameObject*>  bricks)
+{
+	if (bricks.size() > 0)
+	{
+
+		for (auto var : bricks)
 		{
-			switch (var->Type)
-			{
-			case CGameObject::BrickType::Air:
-			case CGameObject::BrickType::AuraRed:
-			case CGameObject::BrickType::AuraGreen:
-			case CGameObject::BrickType::AuraYellow:
-			case CGameObject::BrickType::TreeRed:
-			case CGameObject::BrickType::TreeGreen:
-			case CGameObject::BrickType::TreeYellow:
-			case CGameObject::BrickType::Rope:
-			case CGameObject::BrickType::RopeHead:
-			case CGameObject::BrickType::Water:
-			case CGameObject::BrickType::WaterHead:
-				continue;
-			default:
-				return false;
-			}
+			if (IsMoveablePlace(var)) continue;
+			else return false;
 		}
 	}
 
@@ -274,7 +292,7 @@ bool CStageTable::IsHangablePlace(std::list<CGameObject*>  brick)
 		{
 			return false;
 		}
-		for each (auto var in brick)
+		for (auto var : brick)
 		{
 			switch (var->Type)
 			{
@@ -295,7 +313,7 @@ bool CStageTable::IsHangablePlace(std::list<CGameObject*>  brick)
 			Character->JumpStatus = Character->End;
 			return true;
 		}
-		for each (auto var in brick)
+		for (auto var : brick)
 		{
 			switch (var->Type)
 			{
@@ -323,7 +341,7 @@ int CStageTable::Coloring()
 {
 	CGameObject::Pallets color = CGameObject::Pallets::Empty;
 	bool ctr = true;
-	for each (auto var in this->GetBricks(this->GetCharacter()->GetPosition()))
+	for (auto var : this->GetBricks(this->GetCharacter()->GetPosition()))
 	{
 		if (var != nullptr)
 		{
@@ -385,7 +403,7 @@ void CStageTable::Coloring(CGameObject::Pallets i)
 
 void CStageTable::VerficationBrickVisibleState(int color)
 {
-	for each (auto var in table)
+	for (auto var : table)
 	{
 		var->VerficationVisibleState((CGameObject::Pallets)color);
 	}
@@ -402,4 +420,9 @@ void CStageTable::DeleteObject(CGameObject* object)
 {
 	layer->removeChild(object->getSprite(), true);
 	delete object;
+}
+
+void CStageTable::WorldsEnd()
+{
+	StageEnd = true;
 }

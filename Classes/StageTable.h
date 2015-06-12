@@ -17,10 +17,14 @@ private:
 	int rows, cols;
 	CGameObject::Pallets currentColor;
 	bool IsMoveablePlace(std::list<CGameObject*>);
+	bool IsMoveablePlace(CGameObject*);
 	bool IsHangablePlace(std::list<CGameObject*>);
 	cocos2d::Layer* layer;
 	cocos2d::Rect VisibleSize;
+	cocos2d::Vec2 EndPoint;
+	bool StageEnd;
 
+	void WorldsEnd();
 	void DeleteObject(CGameObject* object);
 public:
 	static CStageTable* Create(cocos2d::Layer*, int, int, cocos2d::Vec2 = cocos2d::Vec2(0, 0));
@@ -33,6 +37,9 @@ public:
 	bool AddCharacter(cocos2d::Vec2 position);
 	CCharacter* GetCharacter();
 	bool RemoveCharacter();
+
+	void SetEndpoint(cocos2d::Vec2 position) { EndPoint = position; }
+	cocos2d::Vec2 GetEndpoint() { return EndPoint; }
 
 	void Update(float ut);
 	void AttatchAll();
@@ -47,6 +54,11 @@ public:
 	void Coloring(CGameObject::Pallets i);
 	void VerficationBrickVisibleState(int color);
 	void LaunchBullet();
+
+
+	bool IsEnd(){
+		return StageEnd;
+	}
 };
 
 #endif

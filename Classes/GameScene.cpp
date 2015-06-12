@@ -27,8 +27,13 @@ bool CGameScene::init()
 
 	scheduleUpdate();
 
-	auto visibleSize = Director::getInstance()->getVisibleSize();
+	visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
+	isResultDroped = false;
+
+	resultLayer = CGameResultLayer::create();
+	resultLayer->setPosition(Vec2(0, visibleSize.height));
+	this->addChild(resultLayer, CGameObject::LayerZOrders::UI + 1);
 
 	this->setTouchEnabled(true);
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -108,6 +113,7 @@ bool CGameScene::init()
 
 	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(0, 6));
 	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(1, 6));
+	tb->Add(CBrick::Create(CBrick::BrickType::Basket, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(17, 6));
 
 	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(0, 7));
 	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(1, 7));
@@ -173,6 +179,7 @@ bool CGameScene::init()
 
 	tb->Add(CBrick::Create(CBrick::BrickType::Log, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(7, 0));
 
+	tb->SetEndpoint(Vec2(17, 6));
 	tb->AttatchAll();
 
 	return true;
@@ -191,17 +198,24 @@ void CGameScene::menuCloseCallback(Ref* pSender)
 
 void CGameScene::update(float dt)
 {
-	if (m2lFlag)
+	if (tb->IsEnd())
 	{
-		tb->MoveCharacter(CStageTable::CharAction::MoveLeft);
+		ShowResult();
 	}
-	else if (m2rFlag)
+	else
 	{
-		tb->MoveCharacter(CStageTable::CharAction::MoveRight);
-	}
-	else if (m2uFlag)
-	{
-		tb->MoveCharacter(CStageTable::CharAction::MoveUp);
+		if (m2lFlag)
+		{
+			tb->MoveCharacter(CStageTable::CharAction::MoveLeft);
+		}
+		else if (m2rFlag)
+		{
+			tb->MoveCharacter(CStageTable::CharAction::MoveRight);
+		}
+		else if (m2uFlag)
+		{
+			tb->MoveCharacter(CStageTable::CharAction::MoveUp);
+		}
 	}
 	tb->Update(dt);
 }
@@ -312,5 +326,15 @@ void CGameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	case EventKeyboard::KeyCode::KEY_ALT:
 		m2uFlag = false;
 		break;
+	}
+}
+
+void CGameScene::ShowResult()
+{
+	if (isResultDroped == false)
+	{
+
+	resultLayer->runAction(CCMoveTo::create(0.5, Vec2(0, 0)));
+	isResultDroped = true; 
 	}
 }

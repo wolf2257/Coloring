@@ -6,6 +6,7 @@
 #include "StageTable.h"
 #include "Character.h"
 #include "ColoringPallet.h"
+#include "GameResultLayer.h"
 
 class CGameScene : public cocos2d::Layer
 {
@@ -21,6 +22,7 @@ public:
 
 	virtual void update(float dt);
 
+
 private:
 	void menuCloseCallback(cocos2d::Ref* pSender);
 	bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
@@ -32,9 +34,13 @@ private:
 	cocos2d::Sprite *LeftButton, *RightButton, *JumpButton;
 	CStageTable *tb;
 	CColoringPallet *cp;
+	CGameResultLayer* resultLayer; 
 
 	bool m2lFlag, m2rFlag, m2uFlag;
 	cocos2d::Sprite* GenBackground();
+	void ShowResult();
+	bool isResultDroped;
+	cocos2d::Size visibleSize;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

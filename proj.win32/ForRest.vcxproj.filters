@@ -78,6 +78,9 @@
     <ClCompile Include="..\Classes\StageTable.cpp">
       <Filter>src\Scene\IngameScene\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameResultLayer.cpp">
+      <Filter>src\Scene\IngameScene\Layers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\StageTable.h">
       <Filter>src\Scene\IngameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameResultLayer.h">
+      <Filter>src\Scene\IngameScene\Layers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
