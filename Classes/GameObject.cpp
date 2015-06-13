@@ -9,6 +9,7 @@ CGameObject::CGameObject()
 	speed = 3;
 	isDestroy = false;
 	isGraviry = false;
+	Type = BrickType::Invisible;
 }
 
 

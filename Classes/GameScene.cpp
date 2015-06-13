@@ -30,6 +30,7 @@ bool CGameScene::init()
 	visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
 	isResultDroped = false;
+	isEnded = false;
 
 	resultLayer = CGameResultLayer::create();
 	resultLayer->setPosition(Vec2(0, visibleSize.height));
@@ -63,9 +64,6 @@ bool CGameScene::init()
 	JumpButton->setPosition(Vec2(visibleSize.width - LeftButton->getContentSize().width / 2 - margin, LeftButton->getContentSize().height / 2 + margin));
 	this->addChild(JumpButton, 4);
 
-	cp = CColoringPallet::Create(Vec2(visibleSize.width - (LeftButton->getContentSize().width * 1.7) - margin, LeftButton->getContentSize().height / 2 + margin));
-	cp->Coloring(CColoringPallet::Pallets::Empty);
-	cp->Attatch(this, 5);
 
 #ifdef _DEBUG
 
@@ -100,7 +98,6 @@ bool CGameScene::init()
 	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(2, 2));
 	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(3, 2));
 	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(4, 2));
-	tb->Add(CBrick::Create(CBrick::BrickType::GlassGreen, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(5, 2));
 
 	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(0, 3));
 	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(1, 3));
@@ -161,27 +158,29 @@ bool CGameScene::init()
 	tb->Add(CBrick::Create(CBrick::BrickType::TreeGreen, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(11, 6));
 	tb->Add(CBrick::Create(CBrick::BrickType::AuraGreen, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(11, 6));
 
-	tb->Add(CBrick::Create(CBrick::BrickType::RopeHead, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 1));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 2));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 3));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 4));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 5));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 6));
-	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(5, 7));
+	tb->Add(CBrick::Create(CBrick::BrickType::RopeHead, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(4, 1));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(4, 2));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(4, 3));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(4, 4));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(4, 5));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(4, 6));
+	tb->Add(CBrick::Create(CBrick::BrickType::Rope, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(4, 7));
 
-	tb->Add(CBrick::Create(CBrick::BrickType::Log, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(15, 0));
+	tb->Add(CBrick::Create(CBrick::BrickType::Log, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(16, 0));
 	tb->Add(CBrick::Create(CBrick::BrickType::Invisible, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(14, 0));
 	tb->Add(CBrick::Create(CBrick::BrickType::Invisible, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(16, 0));
 
 	tb->Add(CBrick::Create(CBrick::BrickType::GlassRed, CGameObject::Pallets::Red, CGameObject::LayerZOrders::Terrians), Vec2(9, 8));
 	tb->Add(CBrick::Create(CBrick::BrickType::EmptyGround, CGameObject::Pallets::Red, CGameObject::LayerZOrders::Terrians), Vec2(9, 9));
 
-
-	tb->Add(CBrick::Create(CBrick::BrickType::Log, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::GameObjects), Vec2(7, 0));
-
 	tb->SetEndpoint(Vec2(17, 6));
-	tb->AttatchAll();
+	//tb->AttatchAll();
 
+
+	cp = CColoringPallet::Create(Vec2(visibleSize.width - (LeftButton->getContentSize().width * 1.7) - margin, LeftButton->getContentSize().height / 2 + margin));
+	tb->Coloring(CGameObject::Pallets::Empty);
+	cp->Coloring(CGameObject::Pallets::Empty);
+	cp->Attatch(this, 5);
 	return true;
 }
 
@@ -198,12 +197,15 @@ void CGameScene::menuCloseCallback(Ref* pSender)
 
 void CGameScene::update(float dt)
 {
-	if (tb->IsEnd())
+	switch (tb->IsEnd())
 	{
+	case CStageTable::StageState::Cleared:
 		ShowResult();
-	}
-	else
-	{
+		break;
+	case CStageTable::StageState::Dead:
+		ShowResult();
+		break;
+	default:
 		if (m2lFlag)
 		{
 			tb->MoveCharacter(CStageTable::CharAction::MoveLeft);
@@ -216,8 +218,9 @@ void CGameScene::update(float dt)
 		{
 			tb->MoveCharacter(CStageTable::CharAction::MoveUp);
 		}
+		break;
 	}
-	tb->Update(dt);
+		tb->Update(dt);
 }
 
 
@@ -237,7 +240,8 @@ bool CGameScene::onTouchBegan(Touch* touch, Event* event)
 	{
 		if (tb->GetCharacter()->JumpStatus == CCharacter::Idle)
 		{
-			tb->GetCharacter()->Jump();
+			if (!isEnded)
+				tb->Jump();
 		}
 		else if (tb->GetCharacter()->JumpStatus == CCharacter::Jumping || tb->GetCharacter()->JumpStatus == CCharacter::Hanging)
 		{
@@ -296,7 +300,8 @@ void CGameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	case EventKeyboard::KeyCode::KEY_ALT:
 		if (tb->GetCharacter()->JumpStatus == CCharacter::Idle)
 		{
-			tb->GetCharacter()->Jump();
+			if (!isEnded)
+			tb->Jump();
 		}
 		else if (tb->GetCharacter()->JumpStatus == CCharacter::Jumping || tb->GetCharacter()->JumpStatus == CCharacter::Hanging)
 		{
@@ -333,8 +338,8 @@ void CGameScene::ShowResult()
 {
 	if (isResultDroped == false)
 	{
-
-	resultLayer->runAction(CCMoveTo::create(0.5, Vec2(0, 0)));
-	isResultDroped = true; 
+		resultLayer->runAction(CCMoveTo::create(0.5, Vec2(0, 0)));
+		isResultDroped = true;
+		CCLOG("%d", tb->GetProcessTime()/1000);
 	}
 }

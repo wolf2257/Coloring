@@ -41,6 +41,7 @@ private:
 	void ShowResult();
 	bool isResultDroped;
 	cocos2d::Size visibleSize;
+	bool isEnded;
 };
 
 #endif // __HELLOWORLD_SCENE_H__

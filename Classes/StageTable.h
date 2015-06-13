@@ -8,6 +8,8 @@
 
 class CStageTable
 {
+public:
+	enum StageState { Playing, Cleared, Dead };
 private:
 	CStageTable();
 	std::list<CGameObject*> table;
@@ -22,10 +24,12 @@ private:
 	cocos2d::Layer* layer;
 	cocos2d::Rect VisibleSize;
 	cocos2d::Vec2 EndPoint;
-	bool StageEnd;
+	StageState StageEnd;
 
 	void WorldsEnd();
 	void DeleteObject(CGameObject* object);
+	unsigned int GetTime();
+	unsigned int tick_inited, tick_ended;
 public:
 	static CStageTable* Create(cocos2d::Layer*, int, int, cocos2d::Vec2 = cocos2d::Vec2(0, 0));
 	~CStageTable();
@@ -54,11 +58,16 @@ public:
 	void Coloring(CGameObject::Pallets i);
 	void VerficationBrickVisibleState(int color);
 	void LaunchBullet();
+	void Jump();
 
-
-	bool IsEnd(){
+	StageState IsEnd(){
 		return StageEnd;
 	}
+	void Die();
+	unsigned int GetProcessTime() { return (tick_ended - tick_inited); }
+
+	//юс╫ц 
+	bool au_1;
 };
 
 #endif

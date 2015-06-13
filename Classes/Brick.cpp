@@ -17,6 +17,9 @@ CBrick* CBrick::Create(BrickType type, CGameObject::Pallets revelation, LayerZOr
 	Brick->Type = type;
 	switch (type)
 	{
+	case BrickType::Air:
+		Brick->sprite = Sprite::create("GameObjects/Invibisle.png");
+		break;
 	case BrickType::Invisible:
 		Brick->sprite = Sprite::create("GameObjects/Invibisle.png");
 		break;
@@ -63,10 +66,14 @@ CBrick* CBrick::Create(BrickType type, CGameObject::Pallets revelation, LayerZOr
 
 	case BrickType::Log:
 		Brick->sprite = Sprite::create("GameObjects/log.png");
+		Brick->sprite->setAnchorPoint(Vec2(0.83, 0.5));
+		Brick->SetAdditional(Vec2(-1, 0));
+		Brick->SetAdditional(Vec2(1, 0));
 		Brick->isGraviry = true;
 		break;
 	case BrickType::Basket:
 		Brick->sprite = Sprite::create("GameObjects/Basket.png");
+		Brick->sprite->setAnchorPoint(Vec2(0.5, 0.8));
 		break;
 
 	case BrickType::RopeHead:

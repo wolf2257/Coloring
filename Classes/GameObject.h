@@ -27,6 +27,7 @@ protected:
 	bool visible;
 	Pallets RevelationColor; //¹ßÇö»ö
 	int zOrder;
+	std::list<cocos2d::Vec2> AdditionalLocation;
 public:
 	~CGameObject();
 	void Attatch(cocos2d::Layer*, int, int=0);
@@ -40,6 +41,10 @@ public:
 		sprite->release();
 	}
 	inline cocos2d::Sprite* getSprite() { return sprite; }
+
+	inline void SetAdditional(cocos2d::Vec2 pos) { AdditionalLocation.push_back(pos); }
+	inline std::list<cocos2d::Vec2> GetAdditional() {return AdditionalLocation; }
+
 	// Properties
 	inline void Show() { this->sprite->setOpacity(255); visible = true; }
 	inline void Hide() { this->sprite->setOpacity(50); visible = false; }

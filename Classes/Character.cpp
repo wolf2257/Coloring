@@ -39,7 +39,8 @@ void CCharacter::MoveLeft()
 {
 	this->filp = true;
 	this->sprite->setFlipX(true);
-	this->SetLocation(this->GetLocation() + Vec2(-this->speed, 0));
+	auto speed = (this->speed - ((Remaining) ? 2 : 0));
+	this->SetLocation(this->GetLocation() + Vec2(-speed, 0));
 	if (AnimCount++ > 10)
 	{
 		switch (AnimStatus)
@@ -64,7 +65,8 @@ void CCharacter::MoveRight()
 {
 	this->filp = false;
 	this->sprite->setFlipX(false);
-	this->SetLocation(this->GetLocation() + Vec2(this->speed, 0));
+	auto speed = (this->speed - ((Remaining) ? 2 : 0));
+	this->SetLocation(this->GetLocation() + Vec2(speed, 0));
 	if (AnimCount++ > 10)
 	{
 		switch (AnimStatus)

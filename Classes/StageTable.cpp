@@ -8,7 +8,9 @@ Vec2 CStageTable::BrickSize = Vec2(50, 50);
 
 CStageTable::CStageTable()
 {
-	StageEnd = false;
+	StageEnd = Playing;
+	au_1 = false;
+	tick_inited = GetTime();
 }
 
 
@@ -25,7 +27,6 @@ CStageTable* CStageTable::Create(cocos2d::Layer* layer, int rows, int cols, Vec2
 	Table->rows = rows;
 	Table->cols = cols;
 	Table->currentColor = CGameObject::Pallets::Empty;
-
 	auto vs = layer->getContentSize();
 	Table->VisibleSize = Rect(0, 0, vs.width, vs.height);;
 	// Array allocation
@@ -45,6 +46,7 @@ void CStageTable::Add(CGameObject* brick, Vec2 position)
 	brick->SetPosition(position);
 	brick->SetLocation(GetBrickLocation(position));
 	table.push_back(brick);
+	brick->Attatch(layer, brick->GetZorder());
 }
 
 std::list<CGameObject*>  CStageTable::GetBricks(Vec2 position)
@@ -74,6 +76,7 @@ bool CStageTable::AddCharacter(Vec2 position)
 	this->Character = CCharacter::Create(GetBrickLocation(position));
 	this->Character->SetPosition(position);
 	table.push_back(this->Character);
+	Character->Attatch(layer, Character->GetZorder());
 	return true;
 }
 
@@ -104,11 +107,13 @@ void CStageTable::AttatchAll()
 
 void CStageTable::Update(float ut)
 {
+	// Endpoint
 	if (Character->GetPosition() == EndPoint)
 	{
 		WorldsEnd();
 	}
 
+	// Objects Process
 	for (auto var : table)
 	{
 		var->Update(ut);
@@ -122,6 +127,7 @@ void CStageTable::Update(float ut)
 		}
 	}
 
+	// е╨х╞ CC
 	for (auto var = bullets.begin(); var != bullets.end();)
 	{
 		bool isBulletDeleted = false;
@@ -208,6 +214,39 @@ void CStageTable::Update(float ut)
 	{
 		var->Update(ut);
 	}
+
+
+#ifndef юс╫ц
+	if (!au_1)
+	{
+
+		auto au = GetBricks(Vec2(16, 7));
+		for (auto var : au)
+		{
+			if (var->Type == CGameObject::BrickType::Log)
+			{
+				this->Add(CBrick::Create(CBrick::BrickType::Invisible, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(14, 7));
+				this->Add(CBrick::Create(CBrick::BrickType::Invisible, CGameObject::Pallets::Empty, CGameObject::LayerZOrders::Terrians), Vec2(15, 7));
+				au_1 = true;
+			}
+		}
+	}
+
+	auto bs = GetBricks(Character->GetPosition() + Vec2(0, 1));
+	for (auto var : bs)
+	{
+		if (var->Type == CGameObject::BrickType::Water)
+		{
+			Die();
+		}
+	}
+
+#endif
+
+	if (!VisibleSize.containsPoint(Character->GetLocation()))
+	{
+		Die();
+	}
 }
 
 void CStageTable::MoveCharacter(CStageTable::CharAction direction)
@@ -260,7 +299,6 @@ bool CStageTable::IsMoveablePlace(CGameObject*  brick)
 	case CGameObject::BrickType::TreeYellow:
 	case CGameObject::BrickType::Rope:
 	case CGameObject::BrickType::RopeHead:
-	case CGameObject::BrickType::Water:
 	case CGameObject::BrickType::WaterHead:
 	case CGameObject::BrickType::Basket :
 		return true;
@@ -424,5 +462,24 @@ void CStageTable::DeleteObject(CGameObject* object)
 
 void CStageTable::WorldsEnd()
 {
-	StageEnd = true;
+	StageEnd = Cleared;
+	tick_ended = GetTime();
+}
+
+void CStageTable::Jump()
+{
+	if (!Character->Remaining) Character->Jump();
+}
+
+void CStageTable::Die()
+{
+	StageEnd = Dead;
+	tick_ended = GetTime();
+}
+
+unsigned int CStageTable::GetTime()
+{
+	timeval getTick;
+	cocos2d::gettimeofday(&getTick, 0);
+	return getTick.tv_sec * 1000 + getTick.tv_usec / 1000;
 }
