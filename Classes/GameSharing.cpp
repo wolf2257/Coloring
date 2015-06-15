@@ -30,7 +30,7 @@ std::function<void()> GameSharing::errorHandler = []() -> void {
 
 bool GameSharing::bIsGPGAvailable = true;
 bool GameSharing::wasGPGAvailableCalled = false;
-std::function<void()> GameSharing::errorHandler;
+//std::function<void()> GameSharing::errorHandler;
 int GameSharing::localPlayerScore = -1;
 bool GameSharing::requestIsBeingProcessed = false;
 std::function<void()> GameSharing::requestCallback;

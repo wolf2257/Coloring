@@ -12,7 +12,20 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../Classes/HelloWorldScene.cpp
+                   ../../Classes/LevelButton.cpp \
+                   ../../Classes/GameObject.cpp \
+                   ../../Classes/Brick.cpp \
+                   ../../Classes/Bullet.cpp \
+                   ../../Classes/Character.cpp \
+                   ../../Classes/StageTable.cpp \
+                   ../../Classes/ColoringPallet.cpp \
+                   ../../Classes/DecideHolder.cpp \
+                   ../../Classes/GameResultLayer.cpp \
+                   ../../Classes/LevelDecideA.cpp \
+                   ../../Classes/LevelDecideB.cpp \
+                   ../../Classes/CreditsLayer.cpp \
+                   ../../Classes/GameScene.cpp \
+                   ../../Classes/MenuScene.cpp 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

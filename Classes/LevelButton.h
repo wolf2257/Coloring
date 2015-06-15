@@ -17,7 +17,7 @@ private:
 public:
 	static CLevelButton* Create(ButtonType, cocos2d::Vec2 = cocos2d::Vec2(0, 0));
 	~CLevelButton();
-	void CLevelButton::Attatch(cocos2d::Layer*, int);
+	void Attatch(cocos2d::Layer*, int);
 
 	// Properties
 	inline cocos2d::Vec2 GetLocation() { return sprite->getPosition(); }

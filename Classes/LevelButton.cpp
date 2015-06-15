@@ -13,43 +13,42 @@ CLevelButton::~CLevelButton()
 
 CLevelButton* CLevelButton::Create(ButtonType type, Vec2 location)
 {
-	auto path = "Decide/"; 
 	auto Brick = new CLevelButton();
 	switch (type)
 	{
 	case CLevelButton::Lock:
 		Brick->sprite = Sprite::create(
-			"Decide/Lock.png"
+			"decide/lock.png"
 			);
 		break;
 	case CLevelButton::A1:
 		Brick->sprite = Sprite::create(
-			"Decide/A/1.png"
+			"decide/a/1.png"
 			);
 		break;
 	case CLevelButton::A2:
 		Brick->sprite = Sprite::create(
-			"Decide/A/2.png"
+			"decide/a/2.png"
 			);
 		break;
 	case CLevelButton::A3:
 		Brick->sprite = Sprite::create(
-			"Decide/A/3.png"
+			"decide/a/3.png"
 			);
 		break;
 	case CLevelButton::A4:
 		Brick->sprite = Sprite::create(
-			"Decide/A/4.png"
+			"decide/a/4.png"
 			);
 		break;
 	case CLevelButton::B1:
 		Brick->sprite = Sprite::create(
-			"Decide/B/1.png"
+			"decide/b/1.png"
 			);
 		break;
 	case CLevelButton::B2:
 		Brick->sprite = Sprite::create(
-			"Decide/B/2.png"
+			"decide/b/2.png"
 			);
 		break;
 	default:

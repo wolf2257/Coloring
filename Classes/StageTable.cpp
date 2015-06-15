@@ -216,7 +216,6 @@ void CStageTable::Update(float ut)
 	}
 
 
-#ifndef юс╫ц
 	if (!au_1)
 	{
 
@@ -241,7 +240,6 @@ void CStageTable::Update(float ut)
 		}
 	}
 
-#endif
 
 	if (!VisibleSize.containsPoint(Character->GetLocation()))
 	{
@@ -480,6 +478,6 @@ void CStageTable::Die()
 unsigned int CStageTable::GetTime()
 {
 	timeval getTick;
-	cocos2d::gettimeofday(&getTick, 0);
+	gettimeofday(&getTick, 0);
 	return getTick.tv_sec * 1000 + getTick.tv_usec / 1000;
 }

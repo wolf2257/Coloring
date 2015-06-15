@@ -50,7 +50,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = CGameScene::createScene();
+	//auto scene = CGameScene::createScene();
+	auto scene = CMenuScene::scene();
 
     // run
     director->runWithScene(scene);

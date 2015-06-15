@@ -1,6 +1,5 @@
 #include "DecideHolder.h"
 
-using namespace std;
 USING_NS_CC;
 
 Vec2 CDecideHolder::BrickSize = Vec2(220, 230);

@@ -52,15 +52,15 @@ bool CGameScene::init()
 
 	const int margin = 10;
 
-	LeftButton = Sprite::create("Buttons/Left.png");
+	LeftButton = Sprite::create("buttons/left.png");
 	LeftButton->setPosition(Vec2(LeftButton->getContentSize().width / 2 + margin, LeftButton->getContentSize().height / 2 + margin));
 	this->addChild(LeftButton, 4);
 
-	RightButton = Sprite::create("Buttons/Right.png");
+	RightButton = Sprite::create("buttons/right.png");
 	RightButton->setPosition(Vec2((LeftButton->getContentSize().width * 1.7) + margin, LeftButton->getContentSize().height / 2 + margin));
 	this->addChild(RightButton, 4);
 
-	JumpButton = Sprite::create("Buttons/Jump.png");
+	JumpButton = Sprite::create("buttons/jump.png");
 	JumpButton->setPosition(Vec2(visibleSize.width - LeftButton->getContentSize().width / 2 - margin, LeftButton->getContentSize().height / 2 + margin));
 	this->addChild(JumpButton, 4);
 
@@ -68,8 +68,8 @@ bool CGameScene::init()
 #ifdef _DEBUG
 
 	auto closeItem = MenuItemImage::create(
-		"CloseNormal.png",
-		"CloseSelected.png",
+		"closenormal.png",
+		"closeselected.png",
 		CC_CALLBACK_1(CGameScene::menuCloseCallback, this));
 
 	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width / 2,
@@ -277,13 +277,13 @@ Sprite* CGameScene::GenBackground()
 	switch (rand() % 4)
 	{
 	default:
-		return Sprite::create("Backgrounds/Orange.png");
+		return Sprite::create("backgrounds/orange.png");
 	case 1:
-		return Sprite::create("Backgrounds/Pink.png");
+		return Sprite::create("backgrounds/rink.png");
 	case 2:
-		return Sprite::create("Backgrounds/Blue.png");
+		return Sprite::create("backgrounds/blue.png");
 	case 3:
-		return Sprite::create("Backgrounds/Mint.png");
+		return Sprite::create("backgrounds/mint.png");
 	}
 }
 

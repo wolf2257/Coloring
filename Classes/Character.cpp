@@ -5,9 +5,12 @@ cocos2d::Map<char*, cocos2d::Texture2D*> CCharacter::animations;
 
 CCharacter::CCharacter()
 {
-	animations.insert("Stand", Director::getInstance()->getTextureCache()->addImage("Charactor/Blue/Stand.png"));
-	animations.insert("Walk1", Director::getInstance()->getTextureCache()->addImage("Charactor/Blue/Walk1.png"));
-	animations.insert("Walk2", Director::getInstance()->getTextureCache()->addImage("Charactor/Blue/Walk2.png"));
+	animations.insert("Stand", Director::getInstance()->getTextureCache()->addImage("charactor/stand.png"));
+	animations.insert("Walk1", Director::getInstance()->getTextureCache()->addImage("charactor/walk1.png"));
+	animations.insert("Walk2", Director::getInstance()->getTextureCache()->addImage("charactor/walk2.png"));
+	animations.insert("Jump", Director::getInstance()->getTextureCache()->addImage("charactor/jump.png"));
+	animations.insert("Hang1", Director::getInstance()->getTextureCache()->addImage("charactor/hang1.png"));
+	animations.insert("Hang1", Director::getInstance()->getTextureCache()->addImage("charactor/hang2.png"));
 }
 
 

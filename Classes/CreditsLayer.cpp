@@ -11,13 +11,13 @@ bool CCreditsLayer::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto sprite = Sprite::create("Backgrounds/Credit.png");
+	auto sprite = Sprite::create("backgrounds/credit.png");
 	sprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(sprite);
 
 	auto closeItem = MenuItemImage::create(
-		"Buttons/Up.png",
-		"Buttons/Up.png",
+		"buttons/up.png",
+		"buttons/up.png",
 		CC_CALLBACK_1(CCreditsLayer::UpButtonCallback, this));
 
 	closeItem->setPosition(Vec2(closeItem->getContentSize().width / 2 + 5, visibleSize.height - closeItem->getContentSize().height / 2 - 5));

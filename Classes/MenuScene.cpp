@@ -37,26 +37,26 @@ bool CMenuScene::init()
 	background->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(background);
 
-	auto cover = Sprite::create("Backgrounds/Title.png");
+	auto cover = Sprite::create("backgrounds/title.png");
 	cover->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	cover->setAnchorPoint(Vec2(0.5,0.8));
 	this->addChild(cover);
 
 	soundItem = MenuItemImage::create(
-		"Buttons/Sound_On.png",
-		"Buttons/Sound_On_2.png",
+		"buttons/sound_on.png",
+		"buttons/sound_on_2.png",
 		CC_CALLBACK_1(CMenuScene::menuSoundCallback, this));
 	soundItem->setPosition(Vec2(-(visibleSize.width * 1 / 4), 0));
 
 	auto startItem = MenuItemImage::create(
-		"Buttons/Start.png",
-		"Buttons/Start_2.png",
+		"buttons/start.png",
+		"buttons/start_2.png",
 		CC_CALLBACK_1(CMenuScene::DownButtonCallback, this));
 	startItem->setPosition(Vec2(0, 0));
 
 	auto creditItem = MenuItemImage::create(
-		"Buttons/Credit.png",
-		"Buttons/Credit_2.png",
+		"buttons/credit.png",
+		"buttons/credit_2.png",
 		CC_CALLBACK_1(CMenuScene::UpButtonCallback, this));
 	creditItem->setPosition(Vec2(visibleSize.width * 1 / 4, 0));
 
@@ -84,23 +84,23 @@ void CMenuScene::UpButtonCallback(cocos2d::Ref* pSender)
 
 string CMenuScene::BackgroundDecider(int index)
 {
-	string path = "Backgrounds/";
+	string path = "backgrounds/";
 	switch (index)
 	{
 	case BackgroundType::Black:
-		path += "Black.png";
+		path += "black.png";
 		break;
 	case BackgroundType::Blue:
-		path += "Blue.png";
+		path += "blue.png";
 		break;
 	case BackgroundType::Mint:
-		path += "Mint.png";
+		path += "mint.png";
 		break;
 	case BackgroundType::Orange:
-		path += "Orange.png";
+		path += "orange.png";
 		break;
 	case BackgroundType::Pink:
-		path += "Pink.png";
+		path += "pink.png";
 		break;
 	default:
 		path += "FUCKYOU^^";

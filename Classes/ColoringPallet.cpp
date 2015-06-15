@@ -5,10 +5,10 @@ Map<char*, cocos2d::Texture2D*> CColoringPallet::pallet;
 
 CColoringPallet::CColoringPallet()
 {
-	pallet.insert("Invisible", Director::getInstance()->getTextureCache()->addImage("Buttons/Pallets/Invisible.png"));
-	pallet.insert("Red", Director::getInstance()->getTextureCache()->addImage("Buttons/Pallets/Red.png"));
-	pallet.insert("Green", Director::getInstance()->getTextureCache()->addImage("Buttons/Pallets/Green.png"));
-	pallet.insert("Yellow", Director::getInstance()->getTextureCache()->addImage("Buttons/Pallets/Yellow.png"));
+	pallet.insert("Invisible", Director::getInstance()->getTextureCache()->addImage("buttons/pallets/invisible.png"));
+	pallet.insert("Red", Director::getInstance()->getTextureCache()->addImage("buttons/pallets/red.png"));
+	pallet.insert("Green", Director::getInstance()->getTextureCache()->addImage("buttons/pallets/green.png"));
+	pallet.insert("Yellow", Director::getInstance()->getTextureCache()->addImage("buttons/pallets/yellow.png"));
 }
 
 

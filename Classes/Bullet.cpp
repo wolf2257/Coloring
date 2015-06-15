@@ -14,7 +14,7 @@ CBullet::~CBullet()
 CBullet* CBullet::Create(Direction dir, cocos2d::Vec2 location)
 {
 	auto Brick = new CBullet();
-	Brick->sprite = Sprite::create("GameObjects/Bullet.png");
+	Brick->sprite = Sprite::create("gameobjects/bullet.png");
 	Brick->sprite->setPosition(location);
 	Brick->direction = dir;
 	Brick->zOrder = LayerZOrders::PlayerObjects;

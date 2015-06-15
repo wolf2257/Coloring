@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\MenuScene">
+      <UniqueIdentifier>{7c44a491-78a1-41f0-b15f-6c3e596946f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GameScene">
+      <UniqueIdentifier>{f61a511a-53b1-40fe-9d11-d690aec2c768}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GameScene\Layers">
+      <UniqueIdentifier>{c02e9ffb-ba1a-4df0-a530-091b5db73104}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GameScene\Objects">
+      <UniqueIdentifier>{7faccc07-d65c-468d-9bc5-c2988950f7d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\MenuScene\Layers">
+      <UniqueIdentifier>{e380a214-6ad2-4830-b8e1-7e9a4d8efc60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\MenuScene\Objects">
+      <UniqueIdentifier>{070b0b4e-48f4-477d-b54a-004ff3391a9f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Brick.cpp">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Bullet.cpp">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Character.cpp">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ColoringPallet.cpp">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameObject.cpp">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\StageTable.cpp">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CreditsLayer.cpp">
+      <Filter>src\MenuScene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DecideHolder.cpp">
+      <Filter>src\MenuScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameResultLayer.cpp">
+      <Filter>src\GameScene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>src\GameScene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameSharing.cpp">
+      <Filter>src\GameScene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LevelButton.cpp">
+      <Filter>src\MenuScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LevelDecideA.cpp">
+      <Filter>src\MenuScene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\LevelDecideB.cpp">
+      <Filter>src\MenuScene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>src\MenuScene\Layers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Brick.h">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Bullet.h">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Character.h">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ColoringPallet.h">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameObject.h">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\StageTable.h">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CreditsLayer.h">
+      <Filter>src\MenuScene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DecideHolder.h">
+      <Filter>src\MenuScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameResultLayer.h">
+      <Filter>src\GameScene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>src\GameScene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameSharing.h">
+      <Filter>src\GameScene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelButton.h">
+      <Filter>src\MenuScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelDecideA.h">
+      <Filter>src\MenuScene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\LevelDecideB.h">
+      <Filter>src\MenuScene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>src\MenuScene\Layers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc">
+      <Filter>resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

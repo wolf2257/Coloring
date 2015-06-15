@@ -12,13 +12,13 @@ bool CLevelDecideA::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto sprite = Sprite::create("Backgrounds/Black.png");
+	auto sprite = Sprite::create("backgrounds/black.png");
 	sprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(sprite);
 
 	auto closeItem = MenuItemImage::create(
-		"Buttons/Down.png",
-		"Buttons/Down.png",
+		"buttons/down.png",
+		"buttons/down.png",
 		CC_CALLBACK_1(CLevelDecideA::DownButtonCallback, this));
 
 	closeItem->setPosition(Vec2(closeItem->getContentSize().width / 2 + 5, visibleSize.height - closeItem->getContentSize().height / 2 - 5));
