@@ -23,7 +23,7 @@ package org.cocos2dx.cpp;
 
 
 import org.cocos2dx.lib.Cocos2dxActivity;
-import your.app.id.*;
+import com.usagination.coloring.R;
 import android.os.Bundle;
 import com.google.android.gms.games.Games;
 import android.content.Context;
