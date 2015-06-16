@@ -17,13 +17,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# =========================
 # Operating System Files
-# =========================
-
-# OSX
-# =========================
-
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -42,9 +36,24 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-cocos2d/
-proj.win32/Debug.win32/
-proj.win32/Release.win32/
+# Visual Studio temp file
 *.sdf
 *.suo
 *.opensdf
+
+# Cocos2d-x library
+cocos2d/
+
+# Win32-debug temp
+*/Debug.win32/
+*/Release.win32/
+
+# Android-debug temp
+*/assets/
+*/bin/
+*/gen/
+*/obj/
+*/libs/
+
+# Project-debug temp
+bin/
