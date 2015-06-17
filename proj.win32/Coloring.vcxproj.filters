@@ -75,11 +75,17 @@
     <ClCompile Include="..\Classes\LevelDecideA.cpp">
       <Filter>src\MenuScene\Layers</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\LevelDecideB.cpp">
-      <Filter>src\MenuScene\Layers</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\MenuScene.cpp">
       <Filter>src\MenuScene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BackgroundLayer.cpp">
+      <Filter>src\MenuScene\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Trigger.cpp">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TriggerEvent.cpp">
+      <Filter>src\GameScene\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,11 +134,17 @@
     <ClInclude Include="..\Classes\LevelDecideA.h">
       <Filter>src\MenuScene\Layers</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\LevelDecideB.h">
-      <Filter>src\MenuScene\Layers</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\MenuScene.h">
       <Filter>src\MenuScene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BackgroundLayer.h">
+      <Filter>src\MenuScene\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Trigger.h">
+      <Filter>src\GameScene\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TriggerEvent.h">
+      <Filter>src\GameScene\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

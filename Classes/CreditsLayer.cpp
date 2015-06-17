@@ -1,5 +1,5 @@
 #include "CreditsLayer.h"
-#include "MenuScene.h"
+#include "BackgroundLayer.h"
 
 bool CCreditsLayer::init()
 {
@@ -36,5 +36,5 @@ void CCreditsLayer::UpButtonCallback(cocos2d::Ref* pSender)
 
 void CCreditsLayer::MoveLayersToDown(float f)
 {
-	CMenuScene::SharedInstance->runAction(CCMoveBy::create(0.5, Vec2(0, -CMenuScene::SharedInstance->visibleSize.height)));
+	CBackgroundLayer::SharedInstance->runAction(EaseInOut::create(CCMoveBy::create(0.5, Vec2(0, -CBackgroundLayer::SharedInstance->visibleSize.height)), 3.5));
 }

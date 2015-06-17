@@ -1,7 +1,6 @@
 #include "LevelDecideA.h"
-#include "MenuScene.h"
-#include "DecideHolder.h"
-
+#include "BackgroundLayer.h"
+#include "GameScene.h"
 bool CLevelDecideA::init()
 {
 	if (!Layer::init())
@@ -9,12 +8,16 @@ bool CLevelDecideA::init()
 		return false;
 	}
 
+	this->setTouchEnabled(true);
+	auto dispatcher = Director::getInstance()->getEventDispatcher();
+	auto listner = EventListenerTouchOneByOne::create();
+	listner->setSwallowTouches(false);
+	listner->onTouchBegan = CC_CALLBACK_2(CLevelDecideA::onTouchBegan, this);
+	listner->onTouchEnded = CC_CALLBACK_2(CLevelDecideA::onTouchEnded, this);
+	dispatcher->addEventListenerWithSceneGraphPriority(listner, this);
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	auto sprite = Sprite::create("backgrounds/black.png");
-	sprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	this->addChild(sprite);
 
 	auto closeItem = MenuItemImage::create(
 		"buttons/down.png",
@@ -28,14 +31,13 @@ bool CLevelDecideA::init()
 	this->addChild(menu, 1);
 
 
-	auto tb = CDecideHolder::Create(4, 1, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	tb = CDecideHolder::Create(4, 1, Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
-	tb->AddBrick(CLevelButton::Create(CLevelButton::ButtonType::A1), 0, 0);
-	tb->AddBrick(CLevelButton::Create(CLevelButton::ButtonType::A2), 1, 0);
-	tb->AddBrick(CLevelButton::Create(CLevelButton::ButtonType::A3), 2, 0);
-	tb->AddBrick(CLevelButton::Create(CLevelButton::ButtonType::A4), 3, 0);
+	tb->AddBrick(CLevelButton::Create(CLevelButton::ButtonType::B1), 0, 0);
+	tb->AddBrick(CLevelButton::Create(CLevelButton::ButtonType::Lock), 1, 0);
+	tb->AddBrick(CLevelButton::Create(CLevelButton::ButtonType::Lock), 2, 0);
+	tb->AddBrick(CLevelButton::Create(CLevelButton::ButtonType::Lock), 3, 0);
 
-	//tb->GetBrick(0, 0)->GetSprite()->schedule 
 	tb->AttatchAll(this, 1);
 
 	return true;
@@ -48,7 +50,7 @@ void CLevelDecideA::DownButtonCallback(cocos2d::Ref* pSender)
 
 void CLevelDecideA::MoveLayersToUp(float f)
 {
-	CMenuScene::SharedInstance->runAction(CCMoveBy::create(0.5, Vec2(0, CMenuScene::SharedInstance->visibleSize.height)));
+	CBackgroundLayer::SharedInstance->runAction(EaseInOut::create(CCMoveBy::create(0.5, Vec2(0, CBackgroundLayer::SharedInstance->visibleSize.height)), 3.5));
 }
 
 void CLevelDecideA::UpButtonCallback(cocos2d::Ref* pSender)
@@ -58,5 +60,20 @@ void CLevelDecideA::UpButtonCallback(cocos2d::Ref* pSender)
 
 void CLevelDecideA::MoveLayersToDown(float f)
 {
-	CMenuScene::SharedInstance->runAction(CCMoveBy::create(0.5, Vec2(0, -CMenuScene::SharedInstance->visibleSize.height)));
+	CBackgroundLayer::SharedInstance->runAction(EaseInOut::create(CCMoveBy::create(0.5, Vec2(0, -CBackgroundLayer::SharedInstance->visibleSize.height)), 3.5));
+}
+
+bool CLevelDecideA::onTouchBegan(Touch* touch, Event* event)
+{
+	auto point = touch->getLocation();
+	if (tb->GetBrick(0, 0)->GetSprite()->boundingBox().containsPoint(point))
+	{
+		Director::getInstance()->replaceScene(CGameScene::createScene());
+	}
+	return true;
+}
+
+void CLevelDecideA::onTouchEnded(Touch* touch, Event* event)
+{
+	auto point = touch->getLocation();
 }

@@ -44,7 +44,7 @@ bool CGameScene::init()
 	listner->onTouchEnded = CC_CALLBACK_2(CGameScene::onTouchEnded, this);
 	dispatcher->addEventListenerWithSceneGraphPriority(listner, this);
 
-	auto bg = GenBackground();
+	auto bg = Sprite::create("backgrounds/mint.png");
 	bg->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	this->addChild(bg, 0);
 

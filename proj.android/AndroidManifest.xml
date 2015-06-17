@@ -28,6 +28,8 @@
         </activity>
     </application>
 
+	<meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />
+
     <supports-screens android:anyDensity="true"
                       android:smallScreens="true"
                       android:normalScreens="true"

@@ -152,9 +152,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClCompile Include="..\Classes\GameSharing.cpp" />
     <ClCompile Include="..\Classes\LevelButton.cpp" />
     <ClCompile Include="..\Classes\LevelDecideA.cpp" />
-    <ClCompile Include="..\Classes\LevelDecideB.cpp" />
+    <ClCompile Include="..\Classes\BackgroundLayer.cpp" />
     <ClCompile Include="..\Classes\MenuScene.cpp" />
     <ClCompile Include="..\Classes\StageTable.cpp" />
+    <ClCompile Include="..\Classes\Trigger.cpp" />
+    <ClCompile Include="..\Classes\TriggerEvent.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +173,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y</Command>
     <ClInclude Include="..\Classes\GameSharing.h" />
     <ClInclude Include="..\Classes\LevelButton.h" />
     <ClInclude Include="..\Classes\LevelDecideA.h" />
-    <ClInclude Include="..\Classes\LevelDecideB.h" />
+    <ClInclude Include="..\Classes\BackgroundLayer.h" />
     <ClInclude Include="..\Classes\MenuScene.h" />
     <ClInclude Include="..\Classes\StageTable.h" />
+    <ClInclude Include="..\Classes\Trigger.h" />
+    <ClInclude Include="..\Classes\TriggerEvent.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
